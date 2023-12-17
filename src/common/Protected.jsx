@@ -2,7 +2,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 const Protected = ({ profile }) => {
   if (!profile) {
-    return <Navigate to="/auth/login" replace />;
+    return <Navigate to="/welcome" replace />;
   }
   return <Outlet />;
 };

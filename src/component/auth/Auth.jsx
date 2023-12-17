@@ -26,6 +26,7 @@ const Auth = () => {
 
   const handleSubmit = async (values, action) => {
     const url = isLoginType ? "/auth/login" : "/auth/register";
+
     const { data, success, message } = await ApiServices.post({
       url: url,
       data: values,
@@ -57,7 +58,7 @@ const Auth = () => {
           enableReinitialize
         >
           {(formik) => (
-            <Form className="container w-75">
+            <Form className="container bg-white ">
               {isLoginType ? <h1>Please Log in</h1> : <h1>Please sign Up</h1>}
               <div>
                 <FormikInputField

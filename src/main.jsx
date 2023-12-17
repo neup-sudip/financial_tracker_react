@@ -3,7 +3,8 @@ import App from "./App.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import AxiosInterceptor from "./api/AxiosInterceptor.jsx";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import "./index.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <AxiosInterceptor />
       <App />
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </BrowserRouter>
 );

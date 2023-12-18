@@ -42,20 +42,24 @@ const Table = ({ heading = [], data, handleEdit, handleView }) => {
                       <>
                         {head === "action" ? (
                           <span className="d-flex align-items-center justify-content-between ">
-                            <button
-                              type="button"
-                              className="btn btn-primary"
-                              onClick={() => handleView(col?.categoryId)}
-                            >
-                              View
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-info"
-                              onClick={() => handleEdit(col?.categoryId)}
-                            >
-                              Edit
-                            </button>
+                            {handleView && (
+                              <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={() => handleView(col?.categoryId)}
+                              >
+                                View
+                              </button>
+                            )}
+                            {handleEdit && (
+                              <button
+                                type="button"
+                                className="btn btn-info"
+                                onClick={() => handleEdit(col?.categoryId)}
+                              >
+                                Edit
+                              </button>
+                            )}
                           </span>
                         ) : (
                           <span> {col[head] || "--"}</span>

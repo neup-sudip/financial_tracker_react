@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { getApi, putApi, postApi, deleteApi } from "./axios.js";
 
 let resObj = {

@@ -12,6 +12,10 @@ export const getIncomesByCategory = async (categoryId) => {
   return await ApiServices.get(`/v1/income/category/${categoryId}`);
 };
 
+export const getIncomePerMonthPerCat = async () => {
+  return await ApiServices.get(`/v1/income/per-month`);
+};
+
 export const createIncome = async (income) => {
   const payload = {
     url: `/v1/income`,

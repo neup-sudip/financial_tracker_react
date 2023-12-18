@@ -3,25 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Table from "../../common/Table";
 import Error from "../../common/Error";
-import { getCategories } from "../../api/helpers/incomeCategoryApis";
+import { getIncomes } from "../../api/helpers/incomeApi";
 
-const CategoryList = () => {
+const IncomeList = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const [dataList, setDataList] = useState("");
 
   const headings = [
-    "categoryId",
-    "title",
+    "incomeId",
+    "categoryTitle",
+    "incomeTitle",
     "description",
+    "amount",
     "createdOn",
-    "status",
     "action",
   ];
 
   const getData = async () => {
-    const { data, success } = await getCategories();
+    const { data, success } = await getIncomes();
     if (success) {
       setDataList(data);
     } else {
@@ -31,11 +32,7 @@ const CategoryList = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/income-category/edit/${id}`);
-  };
-
-  const handleView = (id) => {
-    navigate(`/income-category/view/${id}`);
+    navigate(`/income/edit/${id}`);
   };
 
   useEffect(() => {
@@ -54,21 +51,16 @@ const CategoryList = () => {
     return (
       <div>
         <div className="d-flex justify-content-between align-items-center  my-2">
-          <h5>List of income categories</h5>
+          <h5>List of incomes</h5>
 
-          <Link to="/income-category/add" className="btn btn-primary btn-md">
+          <Link to="/income/add" className="btn btn-primary btn-md">
             Add New
           </Link>
         </div>
-        <Table
-          heading={headings}
-          data={dataList}
-          handleEdit={handleEdit}
-          handleView={handleView}
-        />
+        <Table heading={headings} data={dataList} handleEdit={handleEdit} />
       </div>
     );
   }
 };
 
-export default CategoryList;
+export default IncomeList;

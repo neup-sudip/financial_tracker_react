@@ -10,6 +10,9 @@ import CategoryList from "./component/incomeCategory/CategoryList";
 import AddCategory from "./component/incomeCategory/AddCategory";
 import CategoryIncome from "./component/incomeCategory/CategoryIncome";
 import EditCategory from "./component/incomeCategory/EditCategory";
+import IncomeList from "./component/income/IncomeList";
+import AddIncome from "./component/income/AddIncome";
+import EditIncome from "./component/income/EditIncome";
 
 function App() {
   const profile = "null";
@@ -32,10 +35,9 @@ function App() {
           </Route>
 
           <Route path="income">
-            <Route index element={<Home />} />
-            <Route path="view/:id" element={<Home />} />
-            <Route path="add" element={<Home />} />
-            <Route path="edit/:id" element={<Home />} />
+            <Route index element={<IncomeList />} />
+            <Route path="add" element={<AddIncome />} />
+            <Route path="edit/:id" element={<EditIncome />} />
           </Route>
 
           <Route path="expense-category">

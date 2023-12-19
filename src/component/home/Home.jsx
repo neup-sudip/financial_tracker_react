@@ -3,6 +3,7 @@ import PerMonthCatIncome from "../report/PerMonthCatIncome";
 import PerMonthCatExpense from "../report/PerMonthCatExpense";
 import PerMonthInVsEx from "../report/PerMonthInVsEx";
 import { getPerYearMonthCatInEx } from "../../api/helpers/report";
+import PerCatIncome from "../report/PerCatIncome";
 
 const Home = () => {
   const [chartsLoaded, setChartsLoaded] = useState(false);
@@ -25,9 +26,19 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {chartsLoaded && (
         <>
+          <div className="row">
+            <div className="col-6">
+              <PerCatIncome id="1" />
+            </div>
+            <div className="col-6">
+              <PerCatIncome id="2" />
+            </div>
+          </div>
+
+          <div className="py-1 bg-warning-subtle "></div>
           <PerMonthInVsEx
             inExYears={report?.inExYears}
             perYearInEx={report?.perYearInEx}
@@ -44,7 +55,7 @@ const Home = () => {
           />
         </>
       )}
-    </div>
+    </>
   );
 };
 

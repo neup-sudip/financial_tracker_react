@@ -1,9 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import Loading from "../../common/Loading";
 
 const PerMonthCatExpense = ({ perYearExpense, expenseYears }) => {
-  const divId = `per-month-cat-${uuidv4()}`;
+  const divId = "per-month-cat-expense";
   const [perYearData, setPerYearData] = useState("");
   const [isPending, setIsPending] = useState(true);
 
@@ -40,7 +39,7 @@ const PerMonthCatExpense = ({ perYearExpense, expenseYears }) => {
   };
 
   useEffect(() => {
-    getData();
+    if (perYearExpense) getData();
   }, [perYearExpense]);
 
   useEffect(() => {

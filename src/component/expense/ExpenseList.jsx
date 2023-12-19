@@ -53,7 +53,7 @@ const ExpenseList = () => {
         <div className="d-flex justify-content-between align-items-center  my-2">
           <h5>List of Expenses</h5>
 
-          <Link to="/income/add" className="btn btn-primary btn-md">
+          <Link to="/expense/add" className="btn btn-primary btn-md">
             Add New
           </Link>
         </div>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Loading from "../../common/Loading";
 
 const PerMonthInVsEx = ({ perYearInEx, inExYears }) => {
-  const divId = `per-month-in-ex-${uuidv4()}`;
+  const divId = "per-month-in-vs-ex";
   const [perYearData, setPerYearData] = useState("");
   const [isPending, setIsPending] = useState(true);
 
@@ -40,7 +39,7 @@ const PerMonthInVsEx = ({ perYearInEx, inExYears }) => {
   };
 
   useEffect(() => {
-    getData();
+    if (perYearInEx) getData();
   }, [perYearInEx]);
 
   useEffect(() => {

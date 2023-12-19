@@ -8,13 +8,15 @@ const AppLayout = () => {
     <>
       <ReactToast />
       <div className="d-flex">
-        <div className="w-100" style={{ maxWidth: "250px" }}>
+        <div className="w-100" style={{ maxWidth: "250px", height: "100vh" }}>
           <SideNavbar />
         </div>
         <div className="w-100">
           <Navbar />
           <div className="px-3">
-            <Outlet />
+            <div className="shadow rounded-1 bg-white">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

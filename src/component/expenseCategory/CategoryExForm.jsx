@@ -1,63 +1,39 @@
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import FormikInputField from "../../common/form/FormikInput";
-import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import { useNavigate } from "react-router-dom";
-import { createIncome, updateIncome } from "../../api/helpers/incomeApi";
-import FormikSelect from "../../common/form/FormikSelect";
-import { getActiveInCategories } from "../../api/helpers/incomeCategoryApis";
+import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
+import {
+  createExCategory,
+  updateExCategory,
+} from "../../api/helpers/expenseCategoryApi";
 
-const IncomeForm = ({ editData }) => {
+const CategoryExForm = ({ editData }) => {
   const navigate = useNavigate();
-
   const initial = {
-    categoryId: "",
     title: "",
     description: "",
-    amount: "",
+    amountLimit: "",
+    itemLimit: "",
   };
-
   const [form, setForm] = useState(initial);
-  const [options, setOptions] = useState([]);
 
   const handleSubmit = async (values) => {
     const { success, message } = editData
-      ? await updateIncome(values, editData?.incomeId)
-      : await createIncome(values);
+      ? await updateExCategory(values, editData?.categoryId)
+      : await createExCategory(values);
     if (success) {
       emitSuccessToast(message);
       setForm(initial);
-      navigate("/income");
+      navigate("/expense-category");
     } else {
       emitErrorToast(message);
     }
   };
-
-  const getCatOptn = async () => {
-    const { data, success, message } = await getActiveInCategories();
-    if (success) {
-      setOptions(
-        data?.map((cat) => ({
-          label: cat?.title,
-          value: cat?.categoryId,
-        }))
-      );
-    } else {
-      emitErrorToast(message);
-    }
-  };
-
-  useEffect(() => {
-    getCatOptn();
-  }, []);
 
   useEffect(() => {
     if (editData) {
-      setForm((prev) => ({
-        ...prev,
-        ...editData,
-        title: editData?.incomeTitle,
-      }));
+      setForm((prev) => ({ ...prev, ...editData }));
     }
   }, [editData]);
 
@@ -70,14 +46,8 @@ const IncomeForm = ({ editData }) => {
     >
       {(formik) => (
         <Form className="container bg-white rounded-1 shadow py-2">
-          <h5>Add Income</h5>
+          <h5>Add Expense Category</h5>
           <div className="px-2">
-            <FormikSelect
-              label="Select Category"
-              name="categoryId"
-              options={options}
-              formik={formik}
-            />
             <FormikInputField
               name="title"
               formik={formik}
@@ -91,11 +61,18 @@ const IncomeForm = ({ editData }) => {
               placeholder="Enter description"
             />
             <FormikInputField
-              name="amount"
+              name="amountLimit"
               formik={formik}
+              label="Amount Limit"
               type="number"
-              label="Amount"
-              placeholder="Enter amount"
+              placeholder="Enter amount limit"
+            />
+            <FormikInputField
+              name="itemLimit"
+              formik={formik}
+              label="Item Limit"
+              type="number"
+              placeholder="Enter item limit"
             />
           </div>
 
@@ -108,4 +85,4 @@ const IncomeForm = ({ editData }) => {
   );
 };
 
-export default IncomeForm;
+export default CategoryExForm;

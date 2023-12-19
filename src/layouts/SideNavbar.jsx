@@ -37,16 +37,16 @@ const SideNavbar = () => {
           setActive={setActive}
         />
         <Lis
-          link="/income"
-          title="Income"
-          icon={<i className="fa-solid fa-money-bill"></i>}
+          link="/expense-category"
+          title="Expense Category"
+          icon={<i className="fa-solid fa-shapes"></i>}
           active={active}
           setActive={setActive}
         />
         <Lis
-          link="/expense-category"
-          title="Expense Category"
-          icon={<i className="fa-solid fa-shapes"></i>}
+          link="/income"
+          title="Income"
+          icon={<i className="fa-solid fa-money-bill"></i>}
           active={active}
           setActive={setActive}
         />

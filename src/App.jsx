@@ -5,14 +5,20 @@ import Auth from "./component/auth/Auth";
 import Protected from "./common/Protected";
 import Home from "./component/home/Home";
 import PageNotFound from "./common/PageNotFound";
-import ExpenseList from "./component/expense/ExpenseList";
-import CategoryList from "./component/incomeCategory/CategoryList";
-import AddCategory from "./component/incomeCategory/AddCategory";
+import InCategoryList from "./component/incomeCategory/InCategoryList";
+import AddInCategory from "./component/incomeCategory/AddInCategory";
 import CategoryIncome from "./component/incomeCategory/CategoryIncome";
-import EditCategory from "./component/incomeCategory/EditCategory";
+import EditInCategory from "./component/incomeCategory/EditInCategory";
 import IncomeList from "./component/income/IncomeList";
 import AddIncome from "./component/income/AddIncome";
 import EditIncome from "./component/income/EditIncome";
+import ExCategoryList from "./component/expenseCategory/ExCategoryList";
+import CategoryExpense from "./component/expenseCategory/CategoryExpense";
+import AddExCategory from "./component/expenseCategory/AddExCategory";
+import EditExCategory from "./component/expenseCategory/EditExCategory";
+import ExpenseList from "./component/expense/ExpenseList";
+import AddExpense from "./component/expense/AddExpense";
+import EditExpense from "./component/expense/EditExpense";
 
 function App() {
   const profile = "null";
@@ -28,10 +34,10 @@ function App() {
           <Route index element={<Home />} />
 
           <Route path="income-category">
-            <Route index element={<CategoryList />} />
+            <Route index element={<InCategoryList />} />
             <Route path="view/:id" element={<CategoryIncome />} />
-            <Route path="add" element={<AddCategory />} />
-            <Route path="edit/:id" element={<EditCategory />} />
+            <Route path="add" element={<AddInCategory />} />
+            <Route path="edit/:id" element={<EditInCategory />} />
           </Route>
 
           <Route path="income">
@@ -41,17 +47,16 @@ function App() {
           </Route>
 
           <Route path="expense-category">
-            <Route index element={<Home />} />
-            <Route path="view/:id" element={<Home />} />
-            <Route path="add" element={<Home />} />
-            <Route path="edit/:id" element={<Home />} />
+            <Route index element={<ExCategoryList />} />
+            <Route path="view/:id" element={<CategoryExpense />} />
+            <Route path="add" element={<AddExCategory />} />
+            <Route path="edit/:id" element={<EditExCategory />} />
           </Route>
 
           <Route path="expense">
             <Route index element={<ExpenseList />} />
-            <Route path="view/:id" element={<Home />} />
-            <Route path="add" element={<Home />} />
-            <Route path="edit/:id" element={<Home />} />
+            <Route path="add" element={<AddExpense />} />
+            <Route path="edit/:id" element={<EditExpense />} />
           </Route>
         </Route>
       </Route>

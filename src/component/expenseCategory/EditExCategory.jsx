@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleCategory } from "../../api/helpers/incomeCategoryApis";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
-import CategoryForm from "./CategoryForm";
+import CategoryExForm from "./CategoryExForm";
+import { getSingleExCategory } from "../../api/helpers/expenseCategoryApi";
 
-const EditCategory = () => {
+const EditExCategory = () => {
   const [editData, setEditData] = useState("");
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const { id } = useParams();
 
   const getData = async () => {
-    const { data, success } = await getSingleCategory(id);
+    const { data, success } = await getSingleExCategory(id);
     if (success) {
       setEditData(data);
     } else {
@@ -36,8 +36,8 @@ const EditCategory = () => {
   }
 
   if (editData) {
-    return <CategoryForm editData={editData} />;
+    return <CategoryExForm editData={editData} />;
   }
 };
 
-export default EditCategory;
+export default EditExCategory;

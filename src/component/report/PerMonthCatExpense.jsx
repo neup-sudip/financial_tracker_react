@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useEffect, useState } from "react";
 import Loading from "../../common/Loading";
 
-const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
+const PerMonthCatExpense = ({ perYearExpense, expenseYears }) => {
   const divId = `per-month-cat-${uuidv4()}`;
   const [perYearData, setPerYearData] = useState("");
   const [isPending, setIsPending] = useState(true);
@@ -10,11 +10,11 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   const getData = async () => {
     const currentYear = new Date().getFullYear();
 
-    if (perYearIncome[currentYear]) {
-      setPerYearData(perYearIncome[currentYear]);
+    if (perYearExpense[currentYear]) {
+      setPerYearData(perYearExpense[currentYear]);
     } else {
-      const firstYear = incomeYears[0];
-      setPerYearData(perYearIncome[firstYear]);
+      const firstYear = expenseYears[0];
+      setPerYearData(perYearExpense[firstYear]);
     }
     setIsPending(false);
   };
@@ -23,9 +23,9 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
     const data = window.google.visualization.arrayToDataTable(perYearData);
 
     var options = {
-      title: "Income per month per category",
+      title: "Expense per month per category",
       vAxis: {
-        title: "Income amount",
+        title: "Expense amount",
       },
       hAxis: {
         title: "Per month categories",
@@ -41,7 +41,7 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
 
   useEffect(() => {
     getData();
-  }, [perYearIncome]);
+  }, [perYearExpense]);
 
   useEffect(() => {
     if (perYearData) window.google.charts.setOnLoadCallback(histogram);
@@ -59,4 +59,4 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   );
 };
 
-export default PerMonthCatIncome;
+export default PerMonthCatExpense;

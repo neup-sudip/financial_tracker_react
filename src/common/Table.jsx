@@ -1,4 +1,10 @@
-const Table = ({ heading = [], data, handleEdit, handleView }) => {
+const Table = ({
+  heading = [],
+  data,
+  handleEdit,
+  handleView,
+  handleRemove,
+}) => {
   const wordCapitalize = (str) => {
     return str
       .replace(/([a-z])([A-Z])/g, "$1 $2")
@@ -58,6 +64,15 @@ const Table = ({ heading = [], data, handleEdit, handleView }) => {
                                 onClick={() => handleEdit(col?.categoryId)}
                               >
                                 Edit
+                              </button>
+                            )}
+                            {handleRemove && (
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => handleRemove(col?.categoryId)}
+                              >
+                                Remove
                               </button>
                             )}
                           </span>

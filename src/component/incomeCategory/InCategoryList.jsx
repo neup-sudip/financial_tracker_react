@@ -3,9 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Table from "../../common/Table";
 import Error from "../../common/Error";
-import { getCategories } from "../../api/helpers/incomeCategoryApis";
+import {
+  deleteInCategory,
+  getInCategories,
+} from "../../api/helpers/incomeCategoryApis";
+import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
-const CategoryList = () => {
+const InCategoryList = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(true);
@@ -21,7 +25,7 @@ const CategoryList = () => {
   ];
 
   const getData = async () => {
-    const { data, success } = await getCategories();
+    const { data, success } = await getInCategories();
     if (success) {
       setDataList(data);
     } else {
@@ -36,6 +40,15 @@ const CategoryList = () => {
 
   const handleView = (id) => {
     navigate(`/income-category/view/${id}`);
+  };
+
+  const handleRemove = async (id) => {
+    const { success, message } = await deleteInCategory(id);
+    if (success) {
+      emitSuccessToast(message);
+    } else {
+      emitErrorToast(message);
+    }
   };
 
   useEffect(() => {
@@ -65,10 +78,11 @@ const CategoryList = () => {
           data={dataList}
           handleEdit={handleEdit}
           handleView={handleView}
+          handleRemove={handleRemove}
         />
       </div>
     );
   }
 };
 
-export default CategoryList;
+export default InCategoryList;

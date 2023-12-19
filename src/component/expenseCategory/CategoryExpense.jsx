@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../common/Loading";
-import Table from "../../common/Table";
 import Error from "../../common/Error";
-import { getExpenses } from "../../api/helpers/expenseApi";
+import Table from "../../common/Table";
+import { getExpensesByCategory } from "../../api/helpers/expenseApi";
 
-const ExpenseList = () => {
+const CategoryExpense = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(true);
@@ -13,7 +14,6 @@ const ExpenseList = () => {
 
   const headings = [
     "expenseId",
-    "categoryTitle",
     "expenseTitle",
     "description",
     "amount",
@@ -22,7 +22,7 @@ const ExpenseList = () => {
   ];
 
   const getData = async () => {
-    const { data, success } = await getExpenses();
+    const { data, success } = await getExpensesByCategory(id);
     if (success) {
       setDataList(data);
     } else {
@@ -36,8 +36,8 @@ const ExpenseList = () => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (id) getData();
+  }, [id]);
 
   if (isPending) {
     return <Loading />;
@@ -51,7 +51,7 @@ const ExpenseList = () => {
     return (
       <div>
         <div className="d-flex justify-content-between align-items-center  my-2">
-          <h5>List of Expenses</h5>
+          <h5>List of incomes</h5>
 
           <Link to="/income/add" className="btn btn-primary btn-md">
             Add New
@@ -63,4 +63,4 @@ const ExpenseList = () => {
   }
 };
 
-export default ExpenseList;
+export default CategoryExpense;

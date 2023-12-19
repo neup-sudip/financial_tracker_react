@@ -1,14 +1,23 @@
 import { ApiServices } from "../httpServices";
 
-export const getCategories = async () => {
+export const getExCategories = async () => {
   return await ApiServices.get(`/v1/category/expense`);
 };
 
-export const getSingleCategory = async (categoryId) => {
+export const getActiveExCategories = async () => {
+  const { data, success, message } = await getExCategories();
+  let categories = [];
+  if (success) {
+    categories = data?.filter((cat) => cat?.status);
+  }
+  return { success, data: categories, message };
+};
+
+export const getSingleExCategory = async (categoryId) => {
   return await ApiServices.get(`/v1/category/expense/${categoryId}`);
 };
 
-export const createCategory = async (category) => {
+export const createExCategory = async (category) => {
   const payload = {
     url: `/v1/category/expense`,
     data: category,
@@ -16,7 +25,7 @@ export const createCategory = async (category) => {
   return await ApiServices.post(payload);
 };
 
-export const updateCategory = async (category, categoryId) => {
+export const updateExCategory = async (category, categoryId) => {
   const payload = {
     url: `/v1/category/expense/${categoryId}`,
     data: category,
@@ -24,6 +33,6 @@ export const updateCategory = async (category, categoryId) => {
   return await ApiServices.put(payload);
 };
 
-export const deleteCategory = async (categoryId) => {
+export const deleteExCategory = async (categoryId) => {
   return await ApiServices.delete(`/v1/category/expense/${categoryId}`);
 };

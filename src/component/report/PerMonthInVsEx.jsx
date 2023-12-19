@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Loading from "../../common/Loading";
 
-const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
-  const divId = `per-month-cat-${uuidv4()}`;
+const PerMonthInVsEx = ({ perYearInEx, inExYears }) => {
+  const divId = `per-month-in-ex-${uuidv4()}`;
   const [perYearData, setPerYearData] = useState("");
   const [isPending, setIsPending] = useState(true);
 
   const getData = async () => {
     const currentYear = new Date().getFullYear();
 
-    if (perYearIncome[currentYear]) {
-      setPerYearData(perYearIncome[currentYear]);
+    if (perYearInEx[currentYear]) {
+      setPerYearData(perYearInEx[currentYear]);
     } else {
-      const firstYear = incomeYears[0];
-      setPerYearData(perYearIncome[firstYear]);
+      const firstYear = inExYears[0];
+      setPerYearData(perYearInEx[firstYear]);
     }
     setIsPending(false);
   };
@@ -23,16 +23,16 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
     const data = window.google.visualization.arrayToDataTable(perYearData);
 
     var options = {
-      title: "Income per month per category",
+      title: "Income Vs Expense",
       vAxis: {
-        title: "Income amount",
+        title: "Amount",
       },
       hAxis: {
-        title: "Per month categories",
+        title: "Per Month",
       },
     };
 
-    const chart = new window.google.visualization.ColumnChart(
+    const chart = new window.google.visualization.LineChart(
       document.getElementById(divId)
     );
 
@@ -41,7 +41,7 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
 
   useEffect(() => {
     getData();
-  }, [perYearIncome]);
+  }, [perYearInEx]);
 
   useEffect(() => {
     if (perYearData) window.google.charts.setOnLoadCallback(histogram);
@@ -59,4 +59,4 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   );
 };
 
-export default PerMonthCatIncome;
+export default PerMonthInVsEx;

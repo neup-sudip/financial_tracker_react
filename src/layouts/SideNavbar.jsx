@@ -21,14 +21,33 @@ const SideNavbar = () => {
 
   return (
     <div className="d-flex flex-column flex-shrink-0 p-3 bg-light h-100 ">
-      <Link
-        to="/"
-        className="d-flex align-items-center link-dark text-decoration-none"
-      >
+      <p className="d-flex align-items-center link-dark text-decoration-none">
         <span className="fs-4">Financial Tracker</span>
-      </Link>
+      </p>
       <hr className="m-1 mb-2" />
       <ul className="nav nav-pills flex-column mb-auto">
+        <Lis
+          link="/"
+          title="Home"
+          icon={<i className="fa-solid fa-house-chimney"></i>}
+          active={active}
+          setActive={setActive}
+        />
+
+        <Lis
+          link="/income"
+          title="Income"
+          icon={<i className="fa-solid fa-money-bill"></i>}
+          active={active}
+          setActive={setActive}
+        />
+        <Lis
+          link="/expense"
+          title="Expense"
+          icon={<i className="fa-solid fa-receipt"></i>}
+          active={active}
+          setActive={setActive}
+        />
         <Lis
           link="/income-category"
           title="Income Category"
@@ -44,16 +63,9 @@ const SideNavbar = () => {
           setActive={setActive}
         />
         <Lis
-          link="/income"
-          title="Income"
-          icon={<i className="fa-solid fa-money-bill"></i>}
-          active={active}
-          setActive={setActive}
-        />
-        <Lis
-          link="/expense"
-          title="Expense"
-          icon={<i className="fa-solid fa-receipt"></i>}
+          link="#"
+          title="Transactions"
+          icon={<i className="fa-solid fa-money-bill-transfer"></i>}
           active={active}
           setActive={setActive}
         />

@@ -63,9 +63,9 @@ const CategoryExForm = ({ editData }) => {
             <FormikInputField
               name="amountLimit"
               formik={formik}
-              label="Amount Limit"
+              label="Monthly Goal"
               type="number"
-              placeholder="Enter amount limit"
+              placeholder="Enter monthly goal"
             />
             <FormikInputField
               name="itemLimit"

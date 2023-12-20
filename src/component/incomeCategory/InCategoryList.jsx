@@ -39,7 +39,7 @@ const InCategoryList = () => {
   };
 
   const handleView = (id) => {
-    navigate(`/income-category/view/${id}`);
+    navigate(`/income-category/income/${id}`);
   };
 
   const handleRemove = async (id) => {

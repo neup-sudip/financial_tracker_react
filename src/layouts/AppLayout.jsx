@@ -11,10 +11,10 @@ const AppLayout = () => {
         <div className="w-100" style={{ maxWidth: "250px", height: "100vh" }}>
           <SideNavbar />
         </div>
-        <div className="w-100">
+        <div className="w-100" style={{ height: "100vh" }}>
           <Navbar />
-          <div className="px-3">
-            <div className="shadow rounded-1 bg-white">
+          <div className="px-3 mt-2 ">
+            <div className="shadow rounded-1 bg-light-subtle">
               <Outlet />
             </div>
           </div>

@@ -19,6 +19,7 @@ import EditExCategory from "./component/expenseCategory/EditExCategory";
 import ExpenseList from "./component/expense/ExpenseList";
 import AddExpense from "./component/expense/AddExpense";
 import EditExpense from "./component/expense/EditExpense";
+import ViewExCategory from "./component/expenseCategory/ViewExCategory";
 
 function App() {
   const profile = "null";
@@ -35,7 +36,7 @@ function App() {
 
           <Route path="income-category">
             <Route index element={<InCategoryList />} />
-            <Route path="view/:id" element={<CategoryIncome />} />
+            <Route path="income/:id" element={<CategoryIncome />} />
             <Route path="add" element={<AddInCategory />} />
             <Route path="edit/:id" element={<EditInCategory />} />
           </Route>
@@ -48,9 +49,10 @@ function App() {
 
           <Route path="expense-category">
             <Route index element={<ExCategoryList />} />
-            <Route path="view/:id" element={<CategoryExpense />} />
             <Route path="add" element={<AddExCategory />} />
             <Route path="edit/:id" element={<EditExCategory />} />
+            <Route path="expense/:id" element={<CategoryExpense />} />
+            <Route path="view/:id" element={<ViewExCategory />} />
           </Route>
 
           <Route path="expense">

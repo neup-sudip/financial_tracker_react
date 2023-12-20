@@ -59,3 +59,5 @@ export const chart = [
   ["Nov"],
   ["Dec"],
 ];
+
+export const pieChart = [["Category", "Amount"]];

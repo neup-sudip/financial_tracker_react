@@ -1,4 +1,4 @@
-import { MONTH, chart, inExChart } from "../../constants/constants";
+import { MONTH, chart, pieChart, inExChart } from "../../constants/constants";
 import { ApiServices } from "../httpServices";
 import { getSingleExCategory } from "./expenseCategoryApi";
 
@@ -11,6 +11,11 @@ export const getPerYearMonthCatInEx = async () => {
   const perYearInEx = {};
   const inExYears = [];
 
+  const perYearExPie = {};
+  const exPieYears = [];
+  const perYearInPie = {};
+  const inPieYears = [];
+
   const { data: expenseData } = await ApiServices.get(
     `/v1/report/expense/per-ymc`
   );
@@ -18,9 +23,19 @@ export const getPerYearMonthCatInEx = async () => {
   const exHasCat = [];
 
   let exAsObj = {};
+  const exAsPie = {};
   expenseData.forEach((item) => {
     const { year, month, category, total } = item;
     exHasCat.push(category);
+
+    if (!exAsPie[year]) {
+      exAsPie[year] = {};
+    }
+    if (!exAsPie[year][category]) {
+      exAsPie[year][category] = 0;
+    }
+    exAsPie[year][category] += total;
+
     if (!exAsObj[year]) {
       exAsObj[year] = {};
     }
@@ -30,6 +45,13 @@ export const getPerYearMonthCatInEx = async () => {
     exAsObj[year][month][category] = total;
   });
 
+  Object.keys(exAsPie).forEach((year) => {
+    perYearExPie[year] = JSON.parse(JSON.stringify(pieChart));
+    exPieYears.push(year);
+    Object.keys(exAsPie[year]).forEach((cat) => {
+      perYearExPie[year].push([cat, exAsPie[year][cat]]);
+    });
+  });
   const exCatLen = [...new Set(exHasCat)].length;
 
   Object.keys(exAsObj).forEach((year) => {
@@ -60,6 +82,8 @@ export const getPerYearMonthCatInEx = async () => {
     });
   });
 
+  //income
+
   const { data: incomeData } = await ApiServices.get(
     `/v1/report/income/per-ymc`
   );
@@ -67,9 +91,20 @@ export const getPerYearMonthCatInEx = async () => {
   const inHasCat = [];
 
   let inAsObj = {};
+  let inAsPie = {};
+
   incomeData.forEach((item) => {
     const { year, month, category, total } = item;
     inHasCat.push(category);
+
+    if (!inAsPie[year]) {
+      inAsPie[year] = {};
+    }
+    if (!inAsPie[year][category]) {
+      inAsPie[year][category] = 0;
+    }
+    inAsPie[year][category] += total;
+
     if (!inAsObj[year]) {
       inAsObj[year] = {};
     }
@@ -77,6 +112,14 @@ export const getPerYearMonthCatInEx = async () => {
       inAsObj[year][month] = {};
     }
     inAsObj[year][month][category] = total;
+  });
+
+  Object.keys(inAsPie).forEach((year) => {
+    perYearInPie[year] = JSON.parse(JSON.stringify(pieChart));
+    inPieYears.push(year);
+    Object.keys(inAsPie[year]).forEach((cat) => {
+      perYearInPie[year].push([cat, inAsPie[year][cat]]);
+    });
   });
 
   const inCatLen = [...new Set(inHasCat)].length;
@@ -116,6 +159,10 @@ export const getPerYearMonthCatInEx = async () => {
     incomeYears,
     perYearInEx,
     inExYears: [...new Set(inExYears)],
+    perYearExPie,
+    exPieYears: [...new Set(exPieYears)],
+    perYearInPie,
+    inPieYears: [...new Set(inPieYears)],
   };
 };
 
@@ -130,12 +177,30 @@ export const getPerMonthCatExpense = async (categoryId) => {
   const years = [];
 
   report?.forEach((item) => {
-    const { year, month, total } = item;
+    const { year, month, total, count } = item;
     years.push(year);
     if (!perYear[year]) {
       perYear[year] = {};
     }
-    perYear[year][MONTH[month]] = total;
+    perYear[year][MONTH[month]] = {
+      total,
+      count,
+      global: total,
+      globalCount: count,
+    };
+  });
+
+  Object.keys(perYear).forEach((year) => {
+    for (let i = 2; i <= 12; i++) {
+      if (perYear[year][MONTH[i]]) {
+        perYear[year][MONTH[i]].global += perYear[year][MONTH[i - 1]]
+          ? perYear[year][MONTH[i - 1]]?.global
+          : 0;
+        perYear[year][MONTH[i]].globalCount += perYear[year][MONTH[i - 1]]
+          ? perYear[year][MONTH[i - 1]]?.globalCount
+          : 0;
+      }
+    }
   });
 
   return { category, perYear, years: [...new Set(years)] };

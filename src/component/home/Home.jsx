@@ -31,10 +31,20 @@ const Home = () => {
         <>
           <div className="row">
             <div className="col-6">
-              <PerCatIncome id="1" />
+              <PerCatIncome
+                id="1"
+                perYearPie={report?.perYearInPie}
+                years={report?.inPieYears}
+                title="Per category income"
+              />
             </div>
             <div className="col-6">
-              <PerCatIncome id="2" />
+              <PerCatIncome
+                id="2"
+                perYearPie={report?.perYearExPie}
+                years={report?.exPieYears}
+                title="Per category expense"
+              />
             </div>
           </div>
 

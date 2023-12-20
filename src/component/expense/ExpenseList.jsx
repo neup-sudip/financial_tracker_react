@@ -12,7 +12,7 @@ const ExpenseList = () => {
   const [dataList, setDataList] = useState("");
 
   const headings = [
-    "expenseId",
+    "id",
     "categoryTitle",
     "expenseTitle",
     "description",

@@ -16,7 +16,7 @@ const ExCategoryList = () => {
   const [dataList, setDataList] = useState("");
 
   const headings = [
-    "categoryId",
+    "id",
     "title",
     "description",
     "amountLimit",

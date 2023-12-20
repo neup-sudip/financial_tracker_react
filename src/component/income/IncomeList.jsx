@@ -12,7 +12,7 @@ const IncomeList = () => {
   const [dataList, setDataList] = useState("");
 
   const headings = [
-    "incomeId",
+    "id",
     "categoryTitle",
     "incomeTitle",
     "description",

@@ -1,18 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loading from "../../common/Loading";
 
-const PerCatIncome = ({ id }) => {
+const PerCatIncome = ({ id, perYearPie, years, title }) => {
+  const [perYearData, setPerYearData] = useState("");
+  const [isPending, setIsPending] = useState(true);
+
+  const getData = async () => {
+    const currentYear = new Date().getFullYear();
+
+    if (perYearPie[currentYear]) {
+      setPerYearData(perYearPie[currentYear]);
+    } else {
+      const firstYear = years[0];
+      setPerYearData(perYearPie[firstYear]);
+    }
+    setIsPending(false);
+  };
+
   const histogram = () => {
-    const data = window.google.visualization.arrayToDataTable([
-      ["Task", "Hours per Day"],
-      ["Work", 11],
-      ["Eat", 2],
-      ["Commute", 2],
-      ["Watch TV", 2],
-      ["Sleep", 7],
-    ]);
+    const data = window.google.visualization.arrayToDataTable(perYearData);
 
     var options = {
-      title: "Per Category Income",
+      title,
       is3D: true,
     };
 
@@ -23,8 +32,17 @@ const PerCatIncome = ({ id }) => {
   };
 
   useEffect(() => {
-    window.google.charts.setOnLoadCallback(histogram);
-  }, []);
+    if (perYearPie) getData();
+  }, [perYearPie]);
+
+  useEffect(() => {
+    if (perYearData) window.google.charts.setOnLoadCallback(histogram);
+    // eslint-disable-next-line
+  }, [perYearData]);
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return <div id={`piechart_3d_${id}`} className="w-100"></div>;
 };

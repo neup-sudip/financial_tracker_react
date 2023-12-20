@@ -52,7 +52,7 @@ const Table = ({
                               <button
                                 type="button"
                                 className="btn btn-primary"
-                                onClick={() => handleView(col?.categoryId)}
+                                onClick={() => handleView(col?.id)}
                               >
                                 View
                               </button>
@@ -61,7 +61,7 @@ const Table = ({
                               <button
                                 type="button"
                                 className="btn btn-info"
-                                onClick={() => handleEdit(col?.categoryId)}
+                                onClick={() => handleEdit(col?.id)}
                               >
                                 Edit
                               </button>
@@ -70,7 +70,7 @@ const Table = ({
                               <button
                                 type="button"
                                 className="btn btn-danger"
-                                onClick={() => handleRemove(col?.categoryId)}
+                                onClick={() => handleRemove(col?.id)}
                               >
                                 Remove
                               </button>

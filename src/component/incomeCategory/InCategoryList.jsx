@@ -16,7 +16,7 @@ const InCategoryList = () => {
   const [dataList, setDataList] = useState("");
 
   const headings = [
-    "categoryId",
+    "id",
     "title",
     "description",
     "createdOn",

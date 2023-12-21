@@ -15,3 +15,7 @@ export const register = async (auth) => {
   };
   return await ApiServices.post(payload);
 };
+
+export const getProfile = async () => {
+  return await ApiServices.get("/v1/profile");
+};

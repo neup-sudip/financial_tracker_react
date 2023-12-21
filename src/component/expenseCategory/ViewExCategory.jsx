@@ -46,7 +46,7 @@ const ViewExCategory = () => {
   };
 
   return (
-    <div className="p-3 bg-dark-subtle rounded-1">
+    <div className="p-3  rounded-1">
       <select
         className="form-control"
         onChange={(e) => setActiveYear(e.target.value)}
@@ -75,19 +75,19 @@ const ViewExCategory = () => {
                   <span className="mx-1 text-info">{percentCalc(month)}%</span>
                 </p>
                 <p>
-                  {perMonth[month]?.count || "0"}
                   <span className="text-info mx-1 ">
-                    {perMonth[month]?.globalCount || "0"}
+                    {perMonth[month]?.count || "0"}
                   </span>
-                  /{category[activeYear]?.itemLimit || 0}
+                  {perMonth[month]?.globalCount || "0"}/
+                  {category[activeYear]?.itemLimit || 0}
                 </p>
               </div>
               <span>
-                {perMonth[month]?.total || "0.0"}
                 <span className="text-info mx-1 ">
-                  {perMonth[month]?.global || "0.0"}
+                  {perMonth[month]?.total || "0.0"}
                 </span>
-                /{category[activeYear]?.amountLimit || 0}
+                {perMonth[month]?.global || "0.0"}/
+                {category[activeYear]?.amountLimit || 0}
               </span>
             </div>
             <div

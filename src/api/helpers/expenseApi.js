@@ -1,7 +1,7 @@
 import { ApiServices } from "../httpServices";
 
-export const getExpenses = async () => {
-  return await ApiServices.get(`/v1/expense`);
+export const getExpenses = async (catId) => {
+  return await ApiServices.get(`/v1/expense?category=${catId || -1}`);
 };
 
 export const getSingleExpense = async (expenseId) => {

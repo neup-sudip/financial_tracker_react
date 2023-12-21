@@ -2,7 +2,7 @@ import "./Error.css";
 
 const Error = () => {
   return (
-    <div className="c-loading c-body">
+    <div className="c-loading c-body" style={{ height: "100vh" }}>
       <h1 className="">500</h1>
       <h2>
         Unexpected Error <b>:(</b>

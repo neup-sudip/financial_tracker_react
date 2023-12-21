@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
-import Public from "./common/Public";
+// import Public from "./common/Public";
 import Auth from "./component/auth/Auth";
-import Protected from "./common/Protected";
+// import Protected from "./common/Protected";
 import Home from "./component/home/Home";
 import PageNotFound from "./common/PageNotFound";
 import InCategoryList from "./component/incomeCategory/InCategoryList";
@@ -22,16 +22,16 @@ import EditExpense from "./component/expense/EditExpense";
 import ViewExCategory from "./component/expenseCategory/ViewExCategory";
 
 function App() {
-  const profile = "null";
+  // const profile = "null";
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
-        <Route path="auth" element={<Public profile={profile} />}>
+        <Route path="auth">
           <Route index element={<Navigate to="login" replace />} />
           <Route path="login" element={<Auth />} />
         </Route>
 
-        <Route path="" element={<Protected profile={profile} />}>
+        <Route path="">
           <Route index element={<Home />} />
 
           <Route path="income-category">

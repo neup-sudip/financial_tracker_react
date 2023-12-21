@@ -19,8 +19,7 @@ const ExCategoryList = () => {
     "id",
     "title",
     "description",
-    "amountLimit",
-    "itemLimit",
+    "createdOn",
     "status",
     "action",
   ];

@@ -1,4 +1,10 @@
-import { MONTH, chart, pieChart, inExChart } from "../../constants/constants";
+import {
+  MONTH,
+  chart,
+  pieChart,
+  inExChart,
+  PER_MONTH_CAT,
+} from "../../constants/constants";
 import { ApiServices } from "../httpServices";
 import { getSingleExCategory } from "./expenseCategoryApi";
 
@@ -169,6 +175,19 @@ export const getPerYearMonthCatInEx = async () => {
 export const getPerMonthCatExpense = async (categoryId) => {
   const { data: category } = await getSingleExCategory(categoryId);
 
+  const categoryData = {
+    ...category,
+  };
+
+  category?.years?.forEach((item) => {
+    const { year, amountLimit, itemLimit, id } = item;
+    categoryData[year] = {
+      id,
+      amountLimit,
+      itemLimit,
+    };
+  });
+
   const { data: report } = await ApiServices.get(
     `/v1/report/expense/per-ymc/${categoryId}`
   );
@@ -180,7 +199,7 @@ export const getPerMonthCatExpense = async (categoryId) => {
     const { year, month, total, count } = item;
     years.push(year);
     if (!perYear[year]) {
-      perYear[year] = {};
+      perYear[year] = JSON.parse(JSON.stringify(PER_MONTH_CAT));
     }
     perYear[year][MONTH[month]] = {
       total,
@@ -200,8 +219,16 @@ export const getPerMonthCatExpense = async (categoryId) => {
           ? perYear[year][MONTH[i - 1]]?.globalCount
           : 0;
       }
+      // else {
+      //   perYear[year][MONTH[i]] = {
+      //     count: 0,
+      //     total: 0,
+      //     global: 0,
+      //     globalCount: 0,
+      //   };
+      // }
     }
   });
 
-  return { category, perYear, years: [...new Set(years)] };
+  return { category: categoryData, perYear, years: [...new Set(years)] };
 };

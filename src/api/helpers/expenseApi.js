@@ -1,7 +1,7 @@
 import { ApiServices } from "../httpServices";
 
 export const getExpenses = async (catId) => {
-  return await ApiServices.get(`/v1/expense?category=${catId || -1}`);
+  return await ApiServices.get(`/v1/expense?category=${catId || 0}`);
 };
 
 export const getSingleExpense = async (expenseId) => {
@@ -14,7 +14,7 @@ export const getExpensesByCategory = async (categoryId) => {
 
 export const createExpense = async (expense) => {
   const payload = {
-    url: `/v1/expense`,
+    url: "/v1/expense",
     data: expense,
   };
   return await ApiServices.post(payload);

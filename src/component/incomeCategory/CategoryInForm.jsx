@@ -18,7 +18,7 @@ const CategoryInForm = ({ editData }) => {
 
   const handleSubmit = async (values) => {
     const { success, message } = editData
-      ? await updateInCategory(values, editData?.categoryId)
+      ? await updateInCategory(values, editData?.id)
       : await createInCategory(values);
     if (success) {
       emitSuccessToast(message);

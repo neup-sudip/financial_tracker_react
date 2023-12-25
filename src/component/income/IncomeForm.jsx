@@ -15,6 +15,7 @@ const IncomeForm = ({ editData }) => {
     title: "",
     description: "",
     amount: "",
+    date: "",
   };
 
   const [form, setForm] = useState(initial);
@@ -22,7 +23,7 @@ const IncomeForm = ({ editData }) => {
 
   const handleSubmit = async (values) => {
     const { success, message } = editData
-      ? await updateIncome(values, editData?.incomeId)
+      ? await updateIncome(values, editData?.id)
       : await createIncome(values);
     if (success) {
       emitSuccessToast(message);
@@ -57,6 +58,7 @@ const IncomeForm = ({ editData }) => {
         ...prev,
         ...editData,
         title: editData?.incomeTitle,
+        date: editData?.createdOn,
       }));
     }
   }, [editData]);
@@ -96,6 +98,13 @@ const IncomeForm = ({ editData }) => {
               type="number"
               label="Amount"
               placeholder="Enter amount"
+            />
+            <FormikInputField
+              name="date"
+              formik={formik}
+              type="date"
+              label="Date"
+              placeholder="Select date"
             />
           </div>
 

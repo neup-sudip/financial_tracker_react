@@ -46,7 +46,7 @@ const ViewExCategory = () => {
   };
 
   return (
-    <div className="p-3  rounded-1">
+    <div className="p-3 rounded-1">
       <select
         className="form-control"
         onChange={(e) => setActiveYear(e.target.value)}
@@ -72,7 +72,9 @@ const ViewExCategory = () => {
               <div className="d-flex align-items-center justify-content-between ">
                 <p>
                   {month}
-                  <span className="mx-1 text-info">{percentCalc(month)}%</span>
+                  <span className="mx-1 text-info">
+                    {percentCalc(month).toFixed(2)}%
+                  </span>
                 </p>
                 <p>
                   <span className="text-info mx-1 ">

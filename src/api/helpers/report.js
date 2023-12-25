@@ -26,13 +26,16 @@ export const getPerYearMonthCatInEx = async () => {
     `/v1/report/expense/per-ymc`
   );
 
-  const exHasCat = [];
+  const exHasCat = {};
 
   let exAsObj = {};
   const exAsPie = {};
   expenseData.forEach((item) => {
     const { year, month, category, total } = item;
-    exHasCat.push(category);
+    if (!exHasCat[year]) {
+      exHasCat[year] = [];
+    }
+    exHasCat[year].push(category);
 
     if (!exAsPie[year]) {
       exAsPie[year] = {};
@@ -58,15 +61,20 @@ export const getPerYearMonthCatInEx = async () => {
       perYearExPie[year].push([cat, exAsPie[year][cat]]);
     });
   });
-  const exCatLen = [...new Set(exHasCat)].length;
 
   Object.keys(exAsObj).forEach((year) => {
-    perYearExpense[year] = JSON.parse(JSON.stringify(chart));
+    if (!perYearExpense[year]) {
+      perYearExpense[year] = JSON.parse(JSON.stringify(chart));
+    }
     expenseYears.push(year);
     //fill zero in every rows
     perYearExpense[year].forEach((month, idx) => {
       if (idx > 0) {
-        month.push(...Array(exCatLen - month.length + 1).fill(0));
+        month.push(
+          ...Array([...new Set(exHasCat[year])].length - month.length + 1).fill(
+            0
+          )
+        );
       }
     });
 
@@ -78,7 +86,6 @@ export const getPerYearMonthCatInEx = async () => {
     Object.keys(exAsObj[year]).forEach((month) => {
       Object.keys(exAsObj[year][month]).forEach((cat) => {
         perYearInEx[year][month][2] += exAsObj[year][month][cat];
-
         if (!perYearExpense[year][0].includes(cat)) {
           perYearExpense[year][0].push(cat);
         }
@@ -94,14 +101,17 @@ export const getPerYearMonthCatInEx = async () => {
     `/v1/report/income/per-ymc`
   );
 
-  const inHasCat = [];
+  const inHasCat = {};
 
   let inAsObj = {};
   let inAsPie = {};
 
   incomeData.forEach((item) => {
     const { year, month, category, total } = item;
-    inHasCat.push(category);
+    if (!inHasCat[year]) {
+      inHasCat[year] = [];
+    }
+    inHasCat[year].push(category);
 
     if (!inAsPie[year]) {
       inAsPie[year] = {};
@@ -128,15 +138,19 @@ export const getPerYearMonthCatInEx = async () => {
     });
   });
 
-  const inCatLen = [...new Set(inHasCat)].length;
-
   Object.keys(inAsObj).forEach((year) => {
-    perYearIncome[year] = JSON.parse(JSON.stringify(chart));
+    if (!perYearIncome[year]) {
+      perYearIncome[year] = JSON.parse(JSON.stringify(chart));
+    }
     incomeYears.push(year);
     //fill zero in every rows
     perYearIncome[year].forEach((month, idx) => {
       if (idx > 0) {
-        month.push(...Array(inCatLen - month.length + 1).fill(0));
+        month.push(
+          ...Array([...new Set(inHasCat[year])].length - month.length + 1).fill(
+            0
+          )
+        );
       }
     });
 
@@ -219,14 +233,6 @@ export const getPerMonthCatExpense = async (categoryId) => {
           ? perYear[year][MONTH[i - 1]]?.globalCount
           : 0;
       }
-      // else {
-      //   perYear[year][MONTH[i]] = {
-      //     count: 0,
-      //     total: 0,
-      //     global: 0,
-      //     globalCount: 0,
-      //   };
-      // }
     }
   });
 

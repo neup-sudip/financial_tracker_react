@@ -4,6 +4,7 @@ let resObj = {
   data: "",
   success: false,
   message: "",
+  status: "",
 };
 
 export const ApiServices = {
@@ -14,14 +15,19 @@ export const ApiServices = {
           resObj.data = res.data?.data;
           resObj.success = true;
           resObj.message = res.data?.message;
+          resObj.status = res?.status;
         } else {
           resObj.message = res.data?.message;
+          resObj.success = false;
           resObj.data = res?.data?.data;
+          resObj.status = res?.status;
         }
       })
       .catch((error) => {
+        resObj.success = false;
         resObj.data = error?.response?.data?.data;
-        resObj.message = error.response?.data?.message;
+        resObj.message = error?.response?.data?.message;
+        resObj.status = error?.response?.status;
       });
     return resObj;
   },
@@ -33,14 +39,19 @@ export const ApiServices = {
           resObj.data = res.data?.data;
           resObj.success = true;
           resObj.message = res.data?.message;
+          resObj.status = res?.status;
         } else {
           resObj.message = res.data?.message;
           resObj.data = res?.data?.data;
+          resObj.success = false;
+          resObj.status = res?.status;
         }
       })
       .catch((error) => {
+        resObj.success = false;
         resObj.data = error?.response?.data?.data;
         resObj.message = error.response?.data?.message;
+        resObj.status = error?.response?.status;
       });
     return resObj;
   },
@@ -52,14 +63,19 @@ export const ApiServices = {
           resObj.data = res.data?.data;
           resObj.success = true;
           resObj.message = res.data?.message;
+          resObj.status = res?.status;
         } else {
           resObj.message = res.data?.message;
           resObj.data = res?.data?.data;
+          resObj.success = false;
+          resObj.status = res?.status;
         }
       })
       .catch((error) => {
+        resObj.success = false;
         resObj.data = error?.response?.data?.data;
         resObj.message = error.response?.data?.message;
+        resObj.status = error?.response?.status;
       });
     return resObj;
   },
@@ -71,14 +87,19 @@ export const ApiServices = {
           resObj.data = res.data?.data;
           resObj.success = true;
           resObj.message = res.data?.message;
+          resObj.status = res?.status;
         } else {
           resObj.message = res.data?.message;
           resObj.data = res?.data?.data;
+          resObj.success = false;
+          resObj.status = res?.status;
         }
       })
       .catch((error) => {
+        resObj.success = false;
         resObj.data = error?.response?.data?.data;
         resObj.message = error.response?.data?.message;
+        resObj.status = error?.response?.status;
       });
     return resObj;
   },

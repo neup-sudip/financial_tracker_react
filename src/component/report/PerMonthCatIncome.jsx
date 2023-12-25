@@ -3,23 +3,24 @@ import Loading from "../../common/Loading";
 
 const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   const divId = "per-month-cat-income";
-  const [perYearData, setPerYearData] = useState("");
   const [isPending, setIsPending] = useState(true);
+  const [activeYear, setActiveYear] = useState("");
 
   const getData = async () => {
     const currentYear = new Date().getFullYear();
-
     if (perYearIncome[currentYear]) {
-      setPerYearData(perYearIncome[currentYear]);
+      setActiveYear(currentYear);
     } else {
       const firstYear = incomeYears[0];
-      setPerYearData(perYearIncome[firstYear]);
+      setActiveYear(firstYear);
     }
     setIsPending(false);
   };
 
   const histogram = () => {
-    const data = window.google.visualization.arrayToDataTable(perYearData);
+    const data = window.google.visualization.arrayToDataTable(
+      perYearIncome[activeYear]
+    );
 
     var options = {
       title: "Income per month per category",
@@ -43,18 +44,29 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   }, [perYearIncome]);
 
   useEffect(() => {
-    if (perYearData) window.google.charts.setOnLoadCallback(histogram);
+    if (activeYear) window.google.charts.setOnLoadCallback(histogram);
     // eslint-disable-next-line
-  }, [perYearData]);
+  }, [activeYear]);
 
   if (isPending) {
     return <Loading />;
   }
 
   return (
-    <div>
+    <>
+      <select
+        className="form-control bg-primary-subtle"
+        onChange={(e) => setActiveYear(e.target.value)}
+        value={activeYear}
+      >
+        {incomeYears?.map((year, idx) => (
+          <option key={idx} value={year}>
+            {`Year ${year}`}
+          </option>
+        ))}
+      </select>
       <div id={divId} className="w-100"></div>
-    </div>
+    </>
   );
 };
 

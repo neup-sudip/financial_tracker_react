@@ -13,14 +13,12 @@ const CategoryExForm = ({ editData }) => {
   const initial = {
     title: "",
     description: "",
-    amountLimit: "",
-    itemLimit: "",
   };
   const [form, setForm] = useState(initial);
 
   const handleSubmit = async (values) => {
     const { success, message } = editData
-      ? await updateExCategory(values, editData?.categoryId)
+      ? await updateExCategory(values, editData?.id)
       : await createExCategory(values);
     if (success) {
       emitSuccessToast(message);
@@ -59,20 +57,6 @@ const CategoryExForm = ({ editData }) => {
               formik={formik}
               label="Description"
               placeholder="Enter description"
-            />
-            <FormikInputField
-              name="amountLimit"
-              formik={formik}
-              label="Monthly Goal"
-              type="number"
-              placeholder="Enter monthly goal"
-            />
-            <FormikInputField
-              name="itemLimit"
-              formik={formik}
-              label="Item Limit"
-              type="number"
-              placeholder="Enter item limit"
             />
           </div>
 

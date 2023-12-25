@@ -57,6 +57,7 @@ const IncomeList = () => {
             Add New
           </Link>
         </div>
+
         <Table heading={headings} data={dataList} handleEdit={handleEdit} />
       </div>
     );

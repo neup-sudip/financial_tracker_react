@@ -3,23 +3,24 @@ import Loading from "../../common/Loading";
 
 const PerMonthInVsEx = ({ perYearInEx, inExYears }) => {
   const divId = "per-month-in-vs-ex";
-  const [perYearData, setPerYearData] = useState("");
   const [isPending, setIsPending] = useState(true);
+  const [activeYear, setActiveYear] = useState("");
 
   const getData = async () => {
     const currentYear = new Date().getFullYear();
-
     if (perYearInEx[currentYear]) {
-      setPerYearData(perYearInEx[currentYear]);
+      setActiveYear(currentYear);
     } else {
       const firstYear = inExYears[0];
-      setPerYearData(perYearInEx[firstYear]);
+      setActiveYear(firstYear);
     }
     setIsPending(false);
   };
 
   const histogram = () => {
-    const data = window.google.visualization.arrayToDataTable(perYearData);
+    const data = window.google.visualization.arrayToDataTable(
+      perYearInEx[activeYear]
+    );
 
     var options = {
       title: "Income Vs Expense",
@@ -43,18 +44,29 @@ const PerMonthInVsEx = ({ perYearInEx, inExYears }) => {
   }, [perYearInEx]);
 
   useEffect(() => {
-    if (perYearData) window.google.charts.setOnLoadCallback(histogram);
+    if (activeYear) window.google.charts.setOnLoadCallback(histogram);
     // eslint-disable-next-line
-  }, [perYearData]);
+  }, [activeYear]);
 
   if (isPending) {
     return <Loading />;
   }
 
   return (
-    <div>
+    <>
+      <select
+        className="form-control bg-primary-subtle"
+        onChange={(e) => setActiveYear(e.target.value)}
+        value={activeYear}
+      >
+        {inExYears?.map((year, idx) => (
+          <option key={idx} value={year}>
+            {`Year ${year}`}
+          </option>
+        ))}
+      </select>
       <div id={divId} className="w-100"></div>
-    </div>
+    </>
   );
 };
 

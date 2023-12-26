@@ -4,9 +4,9 @@ import {
   pieChart,
   inExChart,
   PER_MONTH_CAT,
-} from "../../constants/report";
-import { ApiServices } from "../httpServices";
-import { getSingleExCategory } from "./expenseCategoryApi";
+} from "../constants/report";
+import { ApiServices } from "../../http/httpServices";
+import { getSingleExCategory } from "../api/expenseCategoryApi";
 
 export const getPerYearMonthCatInEx = async () => {
   const perYearExpense = {};

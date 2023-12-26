@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT } from "../redux/sagas/actions";
 import { Link } from "react-router-dom";
+import { LOGOUT } from "../../redux/sagas/actions";
 
 const Navbar = () => {
   const { profile } = useSelector((state) => state?.user);

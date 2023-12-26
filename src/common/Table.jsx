@@ -1,3 +1,5 @@
+import { wordCapitalize } from "../helpers/others/wordCapitalize";
+
 const Table = ({
   heading = [],
   data,
@@ -6,12 +8,6 @@ const Table = ({
   handleRemove,
   handleStatus,
 }) => {
-  const wordCapitalize = (str) => {
-    return str
-      .replace(/([a-z])([A-Z])/g, "$1 $2")
-      .replace(/\b\w/g, (c) => c.toUpperCase());
-  };
-
   return (
     <table className="table">
       <thead className="table-light">

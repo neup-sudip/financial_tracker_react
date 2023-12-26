@@ -6,7 +6,7 @@ import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import {
   createExCategory,
   updateExCategory,
-} from "../../api/helpers/expenseCategoryApi";
+} from "../../helpers/api/expenseCategoryApi";
 
 const CategoryExForm = ({ editData }) => {
   const navigate = useNavigate();

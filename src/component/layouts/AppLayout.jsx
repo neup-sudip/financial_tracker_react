@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
-import ReactToast from "../common/toast/ReactToast";
+import ReactToast from "../../common/toast/ReactToast";
 import SideNavbar from "./SideNavbar";
 import Navbar from "./Navbar";
 
 const AppLayout = ({ profile }) => {
-  console.log(profile);
   return (
     <>
       <ReactToast />

@@ -4,7 +4,7 @@ import FormikInputField from "../../common/form/FormikInput";
 import {
   createInCategory,
   updateInCategory,
-} from "../../api/helpers/incomeCategoryApis";
+} from "../../helpers/api/incomeCategoryApis";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import { useNavigate } from "react-router-dom";
 

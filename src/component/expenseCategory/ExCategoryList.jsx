@@ -7,7 +7,7 @@ import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import {
   getExCategories,
   statusExCategory,
-} from "../../api/helpers/expenseCategoryApi";
+} from "../../helpers/api/expenseCategoryApi";
 
 const ExCategoryList = () => {
   const navigate = useNavigate();

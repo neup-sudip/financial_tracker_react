@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import FormikInputField from "../../common/form/FormikInput";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import FormikSelect from "../../common/form/FormikSelect";
-import { createExpense, updateExpense } from "../../api/helpers/expenseApi";
-import { getActiveExCategories } from "../../api/helpers/expenseCategoryApi";
+import { createExpense, updateExpense } from "../../helpers/api/expenseApi";
+import { getActiveExCategories } from "../../helpers/api/expenseCategoryApi";
 import Model from "../../common/Model";
 
 const ExpenseForm = ({ editData }) => {

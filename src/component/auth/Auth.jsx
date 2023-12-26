@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
-import { ApiServices } from "../../api/httpServices";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import FormikInputField from "../../common/form/FormikInput";
 import { useDispatch } from "react-redux";
 import { SET_USER_PROFILE } from "../../redux/sagas/actions";
+import { ApiServices } from "../../http/httpServices";
 
 const Auth = () => {
   const navigate = useNavigate();

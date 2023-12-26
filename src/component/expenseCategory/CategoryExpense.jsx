@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
 import Table from "../../common/Table";
-import { getExpensesByCategory } from "../../api/helpers/expenseApi";
+import { getExpensesByCategory } from "../../helpers/api/expenseApi";
 
 const CategoryExpense = () => {
   const { id } = useParams();

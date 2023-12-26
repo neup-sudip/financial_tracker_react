@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import AppLayout from "./layouts/AppLayout";
-// import Public from "./common/Public";
+import { useSelector } from "react-redux";
 import Auth from "./component/auth/Auth";
-// import Protected from "./common/Protected";
 import Home from "./component/home/Home";
 import PageNotFound from "./common/PageNotFound";
+import Public from "./common/Public";
+import Protected from "./common/Protected";
 import InCategoryList from "./component/incomeCategory/InCategoryList";
 import AddInCategory from "./component/incomeCategory/AddInCategory";
 import CategoryIncome from "./component/incomeCategory/CategoryIncome";
@@ -20,9 +20,7 @@ import ExpenseList from "./component/expense/ExpenseList";
 import AddExpense from "./component/expense/AddExpense";
 import EditExpense from "./component/expense/EditExpense";
 import ViewExCategory from "./component/expenseCategory/ViewExCategory";
-import { useSelector } from "react-redux";
-import Public from "./common/Public";
-import Protected from "./common/Protected";
+import AppLayout from "./component/layouts/AppLayout";
 
 function App() {
   const { profile } = useSelector((state) => state.user);

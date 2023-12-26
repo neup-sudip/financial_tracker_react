@@ -1,4 +1,4 @@
-import { ApiServices } from "../httpServices";
+import { ApiServices } from "../../http/httpServices";
 
 export const getInCategories = async () => {
   return await ApiServices.get(`/v1/category/income`);

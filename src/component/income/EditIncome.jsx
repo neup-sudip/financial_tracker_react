@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
 import IncomeForm from "./IncomeForm";
-import { getSingleIncome } from "../../api/helpers/incomeApi";
+import { getSingleIncome } from "../../helpers/api/incomeApi";
 
 const EditIncome = () => {
   const [editData, setEditData] = useState("");

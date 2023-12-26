@@ -6,7 +6,7 @@ import Error from "../../common/Error";
 import {
   getInCategories,
   statusInCategory,
-} from "../../api/helpers/incomeCategoryApis";
+} from "../../helpers/api/incomeCategoryApis";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
 const InCategoryList = () => {

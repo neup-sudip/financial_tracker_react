@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
 import ExpenseForm from "./ExpenseForm";
-import { getSingleExpense } from "../../api/helpers/expenseApi";
+import { getSingleExpense } from "../../helpers/api/expenseApi";
 
 const EditExpense = () => {
   const [editData, setEditData] = useState("");

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getIncomesByCategory } from "../../api/helpers/incomeApi";
+import { getIncomesByCategory } from "../../helpers/api/incomeApi";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
 import Table from "../../common/Table";

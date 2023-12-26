@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addYears, editYears } from "../../api/helpers/yearsApi";
+import { addYears, editYears } from "../../helpers/api/yearsApi";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
 const ExpenseYear = ({ yearData, activeYear, categoryId, setCategory }) => {

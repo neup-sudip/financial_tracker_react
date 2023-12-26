@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
 import CategoryExForm from "./CategoryExForm";
-import { getSingleExCategory } from "../../api/helpers/expenseCategoryApi";
+import { getSingleExCategory } from "../../helpers/api/expenseCategoryApi";
 
 const EditExCategory = () => {
   const [editData, setEditData] = useState("");

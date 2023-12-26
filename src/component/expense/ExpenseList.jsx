@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Table from "../../common/Table";
 import Error from "../../common/Error";
-import { deleteExpense, getExpenses } from "../../api/helpers/expenseApi";
+import { deleteExpense, getExpenses } from "../../helpers/api/expenseApi";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
+import { excelGenerator } from "../../helpers/others/excelGenerater";
 
 const ExpenseList = () => {
   const navigate = useNavigate();
@@ -47,6 +48,17 @@ const ExpenseList = () => {
     }
   };
 
+  const handleExport = () => {
+    const columns = [
+      "categoryTitle",
+      "expenseTitle",
+      "description",
+      "amount",
+      "createdOn",
+    ];
+    excelGenerator("Expenses", "expenses", columns, dataList);
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -64,6 +76,11 @@ const ExpenseList = () => {
       <div>
         <div className="d-flex justify-content-between align-items-center  my-2">
           <h5>List of Expenses</h5>
+
+          <button className="btn btn-info" onClick={handleExport}>
+            <span className="pe-1">Export</span>
+            <i className="fa-solid fa-download"></i>
+          </button>
 
           <Link to="/expense/add" className="btn btn-primary btn-md">
             Add New

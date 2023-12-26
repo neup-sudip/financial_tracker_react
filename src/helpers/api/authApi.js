@@ -1,4 +1,4 @@
-import { ApiServices } from "../httpServices";
+import { ApiServices } from "../../http/httpServices";
 
 export const login = async (auth) => {
   const payload = {

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import FormikInputField from "../../common/form/FormikInput";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import { useNavigate } from "react-router-dom";
-import { createIncome, updateIncome } from "../../api/helpers/incomeApi";
+import { createIncome, updateIncome } from "../../helpers/api/incomeApi";
 import FormikSelect from "../../common/form/FormikSelect";
-import { getActiveInCategories } from "../../api/helpers/incomeCategoryApis";
+import { getActiveInCategories } from "../../helpers/api/incomeCategoryApis";
 
 const IncomeForm = ({ editData }) => {
   const navigate = useNavigate();

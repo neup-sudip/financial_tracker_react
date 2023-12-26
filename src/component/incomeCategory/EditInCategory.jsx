@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleInCategory } from "../../api/helpers/incomeCategoryApis";
+import { getSingleInCategory } from "../../helpers/api/incomeCategoryApis";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
 import CategoryInForm from "./CategoryInForm";

@@ -1,4 +1,4 @@
-import { ApiServices } from "../httpServices";
+import { ApiServices } from "../../http/httpServices";
 
 export const getExpenses = async (catId) => {
   return await ApiServices.get(`/v1/expense?category=${catId || 0}`);

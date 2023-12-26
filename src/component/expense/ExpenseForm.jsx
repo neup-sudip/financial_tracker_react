@@ -25,9 +25,10 @@ const ExpenseForm = ({ editData }) => {
   const [options, setOptions] = useState([]);
 
   const handleSubmit = async (values, actions) => {
+    const payload = { ...values, date: new Date(values?.date).toISOString() };
     const { data, success, message, status } = editData
-      ? await updateExpense(values, editData?.id)
-      : await createExpense(values);
+      ? await updateExpense(payload, editData?.id)
+      : await createExpense(payload);
 
     if (success) {
       emitSuccessToast(message);
@@ -111,7 +112,7 @@ const ExpenseForm = ({ editData }) => {
               <FormikInputField
                 name="date"
                 formik={formik}
-                type="date"
+                type="datetime-local"
                 label="Date"
                 placeholder="Select date"
               />

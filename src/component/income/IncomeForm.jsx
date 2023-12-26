@@ -22,9 +22,10 @@ const IncomeForm = ({ editData }) => {
   const [options, setOptions] = useState([]);
 
   const handleSubmit = async (values) => {
+    const payload = { ...values, date: new Date(values?.date).toISOString() };
     const { success, message } = editData
-      ? await updateIncome(values, editData?.id)
-      : await createIncome(values);
+      ? await updateIncome(payload, editData?.id)
+      : await createIncome(payload);
     if (success) {
       emitSuccessToast(message);
       setForm(initial);
@@ -102,7 +103,7 @@ const IncomeForm = ({ editData }) => {
             <FormikInputField
               name="date"
               formik={formik}
-              type="date"
+              type="datetime-local"
               label="Date"
               placeholder="Select date"
             />

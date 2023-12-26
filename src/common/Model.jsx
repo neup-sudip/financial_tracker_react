@@ -36,7 +36,7 @@ const Model = ({ handleClose, message, timer, handleConfirm }) => {
           <div className="modal-content">
             <div className="modal-header px-4 py-2 d-flex align-items-center ">
               <h5 className="modal-title" id="exampleModalLabel">
-                Modal title
+                Limit Exceed
               </h5>
               {timer && (
                 <>

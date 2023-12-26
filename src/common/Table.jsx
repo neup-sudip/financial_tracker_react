@@ -4,6 +4,7 @@ const Table = ({
   handleEdit,
   handleView,
   handleRemove,
+  handleStatus,
 }) => {
   const wordCapitalize = (str) => {
     return str
@@ -66,6 +67,20 @@ const Table = ({
                                 Edit
                               </button>
                             )}
+                            {handleStatus && (
+                              <button
+                                type="button"
+                                className={`btn ${
+                                  col?.status ? "btn-danger" : "btn-success"
+                                }`}
+                                onClick={() =>
+                                  handleStatus(col?.id, col?.status ? "R" : "A")
+                                }
+                              >
+                                {col?.status ? "Inactive" : "Active"}
+                              </button>
+                            )}
+
                             {handleRemove && (
                               <button
                                 type="button"

@@ -1,4 +1,4 @@
-import { getApi, putApi, postApi, deleteApi } from "./axios.js";
+import { getApi, putApi, postApi, deleteApi, patchApi } from "./axios.js";
 
 let resObj = {
   data: "",
@@ -11,23 +11,10 @@ export const ApiServices = {
   post: async (payload) => {
     await postApi(payload)
       .then((res) => {
-        if (res?.data?.result) {
-          resObj.data = res.data?.data;
-          resObj.success = true;
-          resObj.message = res.data?.message;
-          resObj.status = res?.status;
-        } else {
-          resObj.message = res.data?.message;
-          resObj.success = false;
-          resObj.data = res?.data?.data;
-          resObj.status = res?.status;
-        }
+        setResponse(res);
       })
       .catch((error) => {
-        resObj.success = false;
-        resObj.data = error?.response?.data?.data;
-        resObj.message = error?.response?.data?.message;
-        resObj.status = error?.response?.status;
+        setError(error);
       });
     return resObj;
   },
@@ -35,23 +22,10 @@ export const ApiServices = {
   get: async (payload) => {
     await getApi(payload)
       .then((res) => {
-        if (res?.data?.result) {
-          resObj.data = res.data?.data;
-          resObj.success = true;
-          resObj.message = res.data?.message;
-          resObj.status = res?.status;
-        } else {
-          resObj.message = res.data?.message;
-          resObj.data = res?.data?.data;
-          resObj.success = false;
-          resObj.status = res?.status;
-        }
+        setResponse(res);
       })
       .catch((error) => {
-        resObj.success = false;
-        resObj.data = error?.response?.data?.data;
-        resObj.message = error.response?.data?.message;
-        resObj.status = error?.response?.status;
+        setError(error);
       });
     return resObj;
   },
@@ -59,23 +33,21 @@ export const ApiServices = {
   put: async (payload) => {
     await putApi(payload)
       .then((res) => {
-        if (res?.data?.result) {
-          resObj.data = res.data?.data;
-          resObj.success = true;
-          resObj.message = res.data?.message;
-          resObj.status = res?.status;
-        } else {
-          resObj.message = res.data?.message;
-          resObj.data = res?.data?.data;
-          resObj.success = false;
-          resObj.status = res?.status;
-        }
+        setResponse(res);
       })
       .catch((error) => {
-        resObj.success = false;
-        resObj.data = error?.response?.data?.data;
-        resObj.message = error.response?.data?.message;
-        resObj.status = error?.response?.status;
+        setError(error);
+      });
+    return resObj;
+  },
+
+  patch: async (payload) => {
+    await patchApi(payload)
+      .then((res) => {
+        setResponse(res);
+      })
+      .catch((error) => {
+        setError(error);
       });
     return resObj;
   },
@@ -83,24 +55,29 @@ export const ApiServices = {
   delete: async (payload) => {
     await deleteApi(payload)
       .then((res) => {
-        if (res?.data?.result) {
-          resObj.data = res.data?.data;
-          resObj.success = true;
-          resObj.message = res.data?.message;
-          resObj.status = res?.status;
-        } else {
-          resObj.message = res.data?.message;
-          resObj.data = res?.data?.data;
-          resObj.success = false;
-          resObj.status = res?.status;
-        }
+        setResponse(res);
       })
       .catch((error) => {
-        resObj.success = false;
-        resObj.data = error?.response?.data?.data;
-        resObj.message = error.response?.data?.message;
-        resObj.status = error?.response?.status;
+        setError(error);
       });
     return resObj;
   },
+};
+
+const setResponse = (res) => {
+  resObj.data = res?.data?.data;
+  resObj.message = res?.data?.message;
+  resObj.status = res?.status;
+  if (res?.data?.result) {
+    resObj.success = true;
+  } else {
+    resObj.success = false;
+  }
+};
+
+const setError = (error) => {
+  resObj.success = false;
+  resObj.data = error?.response?.data?.data;
+  resObj.message = error?.response?.data?.message;
+  resObj.status = error?.response?.status;
 };

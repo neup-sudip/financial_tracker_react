@@ -20,18 +20,21 @@ import ExpenseList from "./component/expense/ExpenseList";
 import AddExpense from "./component/expense/AddExpense";
 import EditExpense from "./component/expense/EditExpense";
 import ViewExCategory from "./component/expenseCategory/ViewExCategory";
+import { useSelector } from "react-redux";
+import Public from "./common/Public";
+import Protected from "./common/Protected";
 
 function App() {
-  // const profile = "null";
+  const { profile } = useSelector((state) => state.user);
   return (
     <Routes>
-      <Route path="/" element={<AppLayout />}>
-        <Route path="auth">
+      <Route path="/" element={<AppLayout profile={profile} />}>
+        <Route path="auth" element={<Public profile={profile} />}>
           <Route index element={<Navigate to="login" replace />} />
           <Route path="login" element={<Auth />} />
         </Route>
 
-        <Route path="">
+        <Route path="" element={<Protected profile={profile} />}>
           <Route index element={<Home />} />
 
           <Route path="income-category">

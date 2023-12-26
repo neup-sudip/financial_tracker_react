@@ -4,8 +4,8 @@ import Loading from "../../common/Loading";
 import Table from "../../common/Table";
 import Error from "../../common/Error";
 import {
-  deleteInCategory,
   getInCategories,
+  statusInCategory,
 } from "../../api/helpers/incomeCategoryApis";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
@@ -42,9 +42,18 @@ const InCategoryList = () => {
     navigate(`/income-category/income/${id}`);
   };
 
-  const handleRemove = async (id) => {
-    const { success, message } = await deleteInCategory(id);
+  const handleStatus = async (catId, action) => {
+    const { success, message } = await statusInCategory(catId, action);
     if (success) {
+      const catList = [];
+      dataList?.forEach((item) => {
+        if (item?.id === catId) {
+          catList.push({ ...item, status: action === "A" ? true : false });
+        } else {
+          catList.push(item);
+        }
+      });
+      setDataList(catList);
       emitSuccessToast(message);
     } else {
       emitErrorToast(message);
@@ -78,7 +87,7 @@ const InCategoryList = () => {
           data={dataList}
           handleEdit={handleEdit}
           handleView={handleView}
-          handleRemove={handleRemove}
+          handleStatus={handleStatus}
         />
       </div>
     );

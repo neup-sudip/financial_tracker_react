@@ -4,9 +4,12 @@ import { Form, Formik } from "formik";
 import { ApiServices } from "../../api/httpServices";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import FormikInputField from "../../common/form/FormikInput";
+import { useDispatch } from "react-redux";
+import { SET_USER_PROFILE } from "../../redux/sagas/actions";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isLoginType, setIsLoginType] = useState(true);
 
@@ -33,7 +36,11 @@ const Auth = () => {
     });
     if (success) {
       emitSuccessToast(message);
-      isLoginType ? navigate("/") : setIsLoginType(true);
+      if (isLoginType) {
+        dispatch(SET_USER_PROFILE(data));
+        navigate("/");
+      }
+      setIsLoginType(true);
     } else {
       data ? action.setErrors(data) : emitErrorToast(message);
     }
@@ -58,9 +65,15 @@ const Auth = () => {
           enableReinitialize
         >
           {(formik) => (
-            <Form className="container bg-white ">
-              {isLoginType ? <h1>Please Log in</h1> : <h1>Please sign Up</h1>}
-              <div>
+            <Form
+              className="container shadow rounded"
+              style={{ maxWidth: "550px" }}
+            >
+              <h2 className="text-center">
+                {isLoginType ? "Please Login" : "Please Signup"}
+              </h2>
+
+              <div className="pb-2">
                 <FormikInputField
                   name="username"
                   formik={formik}
@@ -90,24 +103,26 @@ const Auth = () => {
                     />
                   </>
                 )}
+
+                <div className="d-flex justify-content-between ">
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+
+                  <button
+                    className="btn btn-secondary btn-block"
+                    type="button"
+                    onClick={() => {
+                      setForm(null);
+                      setIsLoginType((prev) => !prev);
+                    }}
+                  >
+                    {isLoginType
+                      ? "Don't have account Signup "
+                      : "Already have account Login"}
+                  </button>
+                </div>
               </div>
-
-              <button type="submit" className="btn btn-primary ">
-                Submit
-              </button>
-
-              <button
-                className="btn btn-secondary btn-block"
-                type="button"
-                onClick={() => {
-                  setForm(null);
-                  setIsLoginType((prev) => !prev);
-                }}
-              >
-                {isLoginType
-                  ? "Don't have account Signup "
-                  : "Already have account Login"}
-              </button>
             </Form>
           )}
         </Formik>

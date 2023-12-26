@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const FormikSwitch = ({ label, name, formik }) => {
   return (
-    <div className="form-check form-switch ">
+    <div className="form-check form-switch w-100 m-auto">
       <label className="form-check-label" htmlFor={label}>
         {label}
       </label>

@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Table from "../../common/Table";
 import Error from "../../common/Error";
-import { getExpenses } from "../../api/helpers/expenseApi";
+import { deleteExpense, getExpenses } from "../../api/helpers/expenseApi";
+import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
 const ExpenseList = () => {
   const navigate = useNavigate();
@@ -35,6 +36,17 @@ const ExpenseList = () => {
     navigate(`/expense/edit/${id}`);
   };
 
+  const handleRemove = async (id) => {
+    const { success, message } = await deleteExpense(id);
+    if (success) {
+      const expnses = dataList?.filter((item) => item?.id !== id);
+      setDataList(expnses);
+      emitSuccessToast(message);
+    } else {
+      emitErrorToast(message);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -58,7 +70,12 @@ const ExpenseList = () => {
           </Link>
         </div>
 
-        <Table heading={headings} data={dataList} handleEdit={handleEdit} />
+        <Table
+          heading={headings}
+          data={dataList}
+          handleEdit={handleEdit}
+          handleRemove={handleRemove}
+        />
       </div>
     );
   }

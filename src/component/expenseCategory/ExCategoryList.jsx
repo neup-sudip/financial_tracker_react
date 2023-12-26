@@ -5,8 +5,8 @@ import Table from "../../common/Table";
 import Error from "../../common/Error";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import {
-  deleteExCategory,
   getExCategories,
+  statusExCategory,
 } from "../../api/helpers/expenseCategoryApi";
 
 const ExCategoryList = () => {
@@ -42,9 +42,18 @@ const ExCategoryList = () => {
     navigate(`/expense-category/view/${id}`);
   };
 
-  const handleRemove = async (id) => {
-    const { success, message } = await deleteExCategory(id);
+  const handleStatus = async (catId, action) => {
+    const { success, message } = await statusExCategory(catId, action);
     if (success) {
+      const catList = [];
+      dataList?.forEach((item) => {
+        if (item?.id === catId) {
+          catList.push({ ...item, status: action === "A" ? true : false });
+        } else {
+          catList.push(item);
+        }
+      });
+      setDataList(catList);
       emitSuccessToast(message);
     } else {
       emitErrorToast(message);
@@ -78,7 +87,7 @@ const ExCategoryList = () => {
           data={dataList}
           handleEdit={handleEdit}
           handleView={handleView}
-          handleRemove={handleRemove}
+          handleStatus={handleStatus}
         />
       </div>
     );

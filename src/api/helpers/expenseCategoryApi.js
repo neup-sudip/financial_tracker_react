@@ -33,6 +33,9 @@ export const updateExCategory = async (category, categoryId) => {
   return await ApiServices.put(payload);
 };
 
-export const deleteExCategory = async (categoryId) => {
-  return await ApiServices.delete(`/v1/category/expense/${categoryId}`);
+export const statusExCategory = async (categoryId, action) => {
+  return await ApiServices.patch({
+    url: `/v1/category/expense/${categoryId}`,
+    data: action,
+  });
 };

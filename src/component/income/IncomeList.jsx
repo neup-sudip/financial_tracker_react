@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Table from "../../common/Table";
 import Error from "../../common/Error";
-import { getIncomes } from "../../api/helpers/incomeApi";
+import { deleteIncome, getIncomes } from "../../api/helpers/incomeApi";
+import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
 const IncomeList = () => {
   const navigate = useNavigate();
@@ -35,6 +36,17 @@ const IncomeList = () => {
     navigate(`/income/edit/${id}`);
   };
 
+  const handleRemove = async (id) => {
+    const { success, message } = await deleteIncome(id);
+    if (success) {
+      const incomes = dataList?.filter((item) => item?.id !== id);
+      setDataList(incomes);
+      emitSuccessToast(message);
+    } else {
+      emitErrorToast(message);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -58,7 +70,12 @@ const IncomeList = () => {
           </Link>
         </div>
 
-        <Table heading={headings} data={dataList} handleEdit={handleEdit} />
+        <Table
+          heading={headings}
+          data={dataList}
+          handleEdit={handleEdit}
+          handleRemove={handleRemove}
+        />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPerMonthCatExpense } from "../../api/helpers/report";
 import { useParams } from "react-router-dom";
-import { MONTH_ARRAY } from "../../constants/constants";
+import { MONTH_ARRAY } from "../../constants/report";
 import ExpenseYear from "./ExpenseYear";
 
 const ViewExCategory = () => {

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { LOGOUT } from "../../redux/sagas/actions";
 
-const Navbar = () => {
+const Navbar = ({ showSideNav, setShowSideNav }) => {
   const { profile } = useSelector((state) => state?.user);
   const dispatch = useDispatch();
 
@@ -16,8 +16,32 @@ const Navbar = () => {
         className="navbar navbar-expand-lg bg-light sticky-top mb-2 "
         data-bs-theme="light"
       >
-        <div className="container-fluid">
-          <span>{!profile && <h5>Financial tracker</h5>}</span>
+        <div className="w-100 d-flex justify-content-between align-items-center ">
+          <span>
+            {profile ? (
+              <>
+                {showSideNav ? (
+                  <span
+                    onClick={() => setShowSideNav(false)}
+                    className="btn btn-danger"
+                  >
+                    <i className="fa-solid fa-xmark fa-lg"></i>
+                  </span>
+                ) : (
+                  <span
+                    onClick={() => setShowSideNav(true)}
+                    className="btn btn-primary"
+                  >
+                    <i className="fa-solid fa-bars"></i>
+                  </span>
+                )}
+
+                <span className="ms-2">{profile?.username}</span>
+              </>
+            ) : (
+              <h5>Financial tracker</h5>
+            )}
+          </span>
 
           <div>
             <ul className="navbar-nav">

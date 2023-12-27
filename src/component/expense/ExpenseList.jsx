@@ -11,7 +11,7 @@ const ExpenseList = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(true);
-  const [dataList, setDataList] = useState("");
+  const [dataList, setDataList] = useState([]);
 
   const headings = [
     "id",
@@ -71,7 +71,7 @@ const ExpenseList = () => {
     return <Error />;
   }
 
-  if (dataList) {
+  if (dataList?.length > 0) {
     return (
       <div>
         <div className="d-flex justify-content-between align-items-center  my-2">

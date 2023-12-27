@@ -21,6 +21,7 @@ import AddExpense from "./component/expense/AddExpense";
 import EditExpense from "./component/expense/EditExpense";
 import ViewExCategory from "./component/expenseCategory/ViewExCategory";
 import AppLayout from "./component/layouts/AppLayout";
+import Transactions from "./component/transaction/Transactions";
 
 function App() {
   const { profile } = useSelector((state) => state.user);
@@ -34,6 +35,8 @@ function App() {
 
         <Route path="" element={<Protected profile={profile} />}>
           <Route index element={<Home />} />
+
+          <Route path="/transaction" element={<Transactions />} />
 
           <Route path="income-category">
             <Route index element={<InCategoryList />} />

@@ -63,7 +63,7 @@ const SideNavbar = () => {
           setActive={setActive}
         />
         <Lis
-          link="#"
+          link="/transaction"
           title="Transactions"
           icon={<i className="fa-solid fa-money-bill-transfer"></i>}
           active={active}

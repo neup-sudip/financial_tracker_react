@@ -55,8 +55,7 @@ const Transactions = () => {
     const page = parseInt(searchParams.get("page")) || 1;
     setSearchParams({ query, page });
     getData(page, query);
-    //eslint-disable-next-line
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   return (
     <>

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { addYears, editYears } from "../../helpers/api/yearsApi";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 
 const ExpenseYear = ({ yearData, activeYear, categoryId, setCategory }) => {
-  const initial = {
-    amountLimit: "",
-    itemLimit: "",
-  };
+  const initial = useMemo(() => {
+    return {
+      amountLimit: "",
+      itemLimit: "",
+    };
+  }, []);
 
   const [form, setForm] = useState(initial);
 
@@ -36,7 +38,7 @@ const ExpenseYear = ({ yearData, activeYear, categoryId, setCategory }) => {
     } else {
       setForm(initial);
     }
-  }, [yearData]);
+  }, [yearData, initial]);
 
   return (
     <div className="d-flex align-items-end  justify-content-between ">

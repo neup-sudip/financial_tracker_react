@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Loading from "../../common/Loading";
 
 const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
@@ -6,7 +6,7 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   const [isPending, setIsPending] = useState(true);
   const [activeYear, setActiveYear] = useState("");
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const currentYear = new Date().getFullYear();
     if (perYearIncome[currentYear]) {
       setActiveYear(currentYear);
@@ -15,9 +15,9 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
       setActiveYear(firstYear);
     }
     setIsPending(false);
-  };
+  }, [incomeYears, perYearIncome]);
 
-  const histogram = () => {
+  const histogram = useCallback(() => {
     const data = window.google.visualization.arrayToDataTable(
       perYearIncome[activeYear]
     );
@@ -37,16 +37,15 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
     );
 
     chart.draw(data, options);
-  };
+  }, [activeYear, perYearIncome]);
 
   useEffect(() => {
-    if (perYearIncome) getData();
-  }, [perYearIncome]);
+    getData();
+  }, [getData]);
 
   useEffect(() => {
-    if (activeYear) window.google.charts.setOnLoadCallback(histogram);
-    // eslint-disable-next-line
-  }, [activeYear]);
+    window.google.charts.setOnLoadCallback(histogram);
+  }, [histogram]);
 
   if (isPending) {
     return <Loading />;

@@ -80,8 +80,7 @@ const ExpenseList = () => {
     const page = parseInt(searchParams.get("page")) || 1;
     setSearchParams({ page });
     getData(page);
-    //eslint-disable-next-line
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   if (isPending) {
     return <Loading />;

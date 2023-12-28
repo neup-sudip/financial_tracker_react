@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { put } from "redux-saga/effects";
 import { setProfile } from "../features/user.js";
 
-export function* setUserProfile({ type, payload }) {
+export function* setUserProfile({ payload }) {
   try {
     yield put(setProfile(payload));
   } catch (error) {

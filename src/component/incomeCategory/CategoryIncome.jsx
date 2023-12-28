@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getIncomesByCategory } from "../../helpers/api/incomeApi";
 import Loading from "../../common/Loading";
@@ -21,7 +21,7 @@ const CategoryIncome = () => {
     "action",
   ];
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const { data, success } = await getIncomesByCategory(id);
     if (success) {
       setDataList(data);
@@ -29,15 +29,15 @@ const CategoryIncome = () => {
       setError(true);
     }
     setIsPending(false);
-  };
+  }, [id]);
 
   const handleEdit = (id) => {
     navigate(`/income/edit/${id}`);
   };
 
   useEffect(() => {
-    if (id) getData();
-  }, [id]);
+    getData();
+  }, [getData]);
 
   if (isPending) {
     return <Loading />;

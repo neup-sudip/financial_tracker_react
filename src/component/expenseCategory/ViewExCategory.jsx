@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ExpenseYear from "./ExpenseYear";
 import { getPerMonthCatExpense } from "../../helpers/others/report";
@@ -12,7 +12,7 @@ const ViewExCategory = () => {
   const [activeYear, setActiveYear] = useState("");
   const [category, setCategory] = useState("");
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const { category: data, perYear, years } = await getPerMonthCatExpense(id);
 
     setCategory(data);
@@ -27,21 +27,21 @@ const ViewExCategory = () => {
       const firstYear = years[0];
       setActiveYear(firstYear);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   useEffect(() => {
     if (activeYear) {
       setPerMonth(report[activeYear]);
     }
-  }, [activeYear]);
+  }, [activeYear, report]);
 
   const percentCalc = (month) => {
     return (
-      (perMonth[month]?.global / category[activeYear]?.amountLimit) * 100 || 0
+      (perMonth[month]?.gross / category[activeYear]?.amountLimit) * 100 || 0
     );
   };
 
@@ -77,19 +77,17 @@ const ViewExCategory = () => {
                   </span>
                 </p>
                 <p>
+                  {perMonth[month]?.count || "0"}
                   <span className="text-info mx-1 ">
-                    {perMonth[month]?.count || "0"}
+                    {perMonth[month]?.grossCount || "0"}
                   </span>
-                  {perMonth[month]?.globalCount || "0"}/
-                  {category[activeYear]?.itemLimit || 0}
                 </p>
               </div>
-              <span>
+              <span className="d-flex justify-content-between ">
+                Net {perMonth[month]?.total || "0.0"}
                 <span className="text-info mx-1 ">
-                  {perMonth[month]?.total || "0.0"}
+                  Gross {perMonth[month]?.gross || "0.0"}
                 </span>
-                {perMonth[month]?.global || "0.0"}/
-                {category[activeYear]?.amountLimit || 0}
               </span>
             </div>
             <div

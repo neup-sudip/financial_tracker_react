@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Loading from "../../common/Loading";
 
 const PerCatIncome = ({ id, perYearPie, years, title }) => {
   const [isPending, setIsPending] = useState(true);
   const [activeYear, setActiveYear] = useState("");
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const currentYear = new Date().getFullYear();
     if (perYearPie[currentYear]) {
       setActiveYear(currentYear);
@@ -14,9 +14,9 @@ const PerCatIncome = ({ id, perYearPie, years, title }) => {
       setActiveYear(firstYear);
     }
     setIsPending(false);
-  };
+  }, [perYearPie, years]);
 
-  const histogram = () => {
+  const histogram = useCallback(() => {
     const data = window.google.visualization.arrayToDataTable(
       perYearPie[activeYear]
     );
@@ -30,16 +30,15 @@ const PerCatIncome = ({ id, perYearPie, years, title }) => {
       document.getElementById(`piechart_3d_${id}`)
     );
     chart.draw(data, options);
-  };
+  }, [activeYear, id, perYearPie, title]);
 
   useEffect(() => {
-    if (perYearPie) getData();
-  }, [perYearPie]);
+    getData();
+  }, [getData]);
 
   useEffect(() => {
     if (activeYear) window.google.charts.setOnLoadCallback(histogram);
-    // eslint-disable-next-line
-  }, [activeYear]);
+  }, [activeYear, histogram]);
 
   if (isPending) {
     return <Loading />;

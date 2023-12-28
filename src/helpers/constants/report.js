@@ -13,81 +13,6 @@ export const MONTH = {
   12: "December",
 };
 
-export const PER_MONTH_CAT = {
-  January: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  February: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  March: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  April: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  May: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  June: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  July: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  August: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  September: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  October: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  November: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-  December: {
-    total: 0,
-    count: 0,
-    global: 0,
-    globalCount: 0,
-  },
-};
-
 export const MONTH_ARRAY = [
   "January",
   "February",
@@ -102,6 +27,22 @@ export const MONTH_ARRAY = [
   "November",
   "December",
 ];
+
+const getPerMonthCat = () => {
+  let catObj = {};
+  MONTH_ARRAY.forEach(
+    (month) =>
+      (catObj[month] = {
+        total: 0,
+        count: 0,
+        gross: 0,
+        grossCount: 0,
+      })
+  );
+  return catObj;
+};
+
+export const PER_MONTH_CAT = getPerMonthCat();
 
 export const INEXCHART = [
   ["Month", "Income", "Expense"],

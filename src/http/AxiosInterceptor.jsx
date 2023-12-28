@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { instance } from "./axios";
 import { useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ const AxiosInterceptor = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleRequest = () => {
+  const handleRequest = useCallback(() => {
     instance.interceptors.response.use(
       (response) => {
         return response;
@@ -21,12 +21,11 @@ const AxiosInterceptor = () => {
         return Promise.reject(error);
       }
     );
-  };
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     handleRequest();
-    //eslint-disable-next-line
-  }, []);
+  }, [handleRequest]);
   return <></>;
 };
 

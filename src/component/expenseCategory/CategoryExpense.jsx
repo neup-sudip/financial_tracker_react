@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../common/Loading";
 import Error from "../../common/Error";
@@ -21,7 +21,7 @@ const CategoryExpense = () => {
     "action",
   ];
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const { data, success } = await getExpensesByCategory(id);
     if (success) {
       setDataList(data);
@@ -29,15 +29,15 @@ const CategoryExpense = () => {
       setError(true);
     }
     setIsPending(false);
-  };
+  }, [id]);
 
   const handleEdit = (id) => {
     navigate(`/expense/edit/${id}`);
   };
 
   useEffect(() => {
-    if (id) getData();
-  }, [id]);
+    getData();
+  }, [getData]);
 
   if (isPending) {
     return <Loading />;

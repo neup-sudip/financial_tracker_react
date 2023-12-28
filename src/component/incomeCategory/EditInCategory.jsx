@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleInCategory } from "../../helpers/api/incomeCategoryApis";
 import Loading from "../../common/Loading";
@@ -11,7 +11,7 @@ const EditInCategory = () => {
   const [isPending, setIsPending] = useState(true);
   const { id } = useParams();
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const { data, success } = await getSingleInCategory(id);
     if (success) {
       setEditData(data);
@@ -19,13 +19,11 @@ const EditInCategory = () => {
       setError(true);
     }
     setIsPending(false);
-  };
+  }, [id]);
 
   useEffect(() => {
-    if (id) {
-      getData();
-    }
-  }, [id]);
+    getData();
+  }, [getData]);
 
   if (isPending) {
     return <Loading />;

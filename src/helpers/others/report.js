@@ -102,19 +102,19 @@ export const getPerMonthCatExpense = async (categoryId) => {
     perYear[year][MONTH[month]] = {
       total,
       count,
-      global: total,
-      globalCount: count,
+      gross: total,
+      grossCount: count,
     };
   });
 
   Object.keys(perYear).forEach((year) => {
     for (let i = 2; i <= 12; i++) {
       if (perYear[year][MONTH[i]]) {
-        perYear[year][MONTH[i]].global += perYear[year][MONTH[i - 1]]
-          ? perYear[year][MONTH[i - 1]]?.global
+        perYear[year][MONTH[i]].gross += perYear[year][MONTH[i - 1]]
+          ? perYear[year][MONTH[i - 1]]?.gross
           : 0;
-        perYear[year][MONTH[i]].globalCount += perYear[year][MONTH[i - 1]]
-          ? perYear[year][MONTH[i - 1]]?.globalCount
+        perYear[year][MONTH[i]].grossCount += perYear[year][MONTH[i - 1]]
+          ? perYear[year][MONTH[i - 1]]?.grossCount
           : 0;
       }
     }

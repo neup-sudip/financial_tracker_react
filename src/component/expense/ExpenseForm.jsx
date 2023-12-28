@@ -7,6 +7,7 @@ import FormikSelect from "../../common/form/FormikSelect";
 import { createExpense, updateExpense } from "../../helpers/api/expenseApi";
 import { getActiveExCategories } from "../../helpers/api/expenseCategoryApi";
 import Model from "../../common/Model";
+import expense from "../../validation/expanse";
 
 const ExpenseForm = ({ editData }) => {
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ const ExpenseForm = ({ editData }) => {
       <Formik
         initialValues={form}
         onSubmit={handleSubmit}
-        // validationSchema={bookValidation}
+        validationSchema={expense}
         enableReinitialize
       >
         {(formik) => (

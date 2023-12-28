@@ -78,7 +78,9 @@ const ExpenseList = () => {
 
   useEffect(() => {
     const page = parseInt(searchParams.get("page")) || 1;
-    setSearchParams({ page });
+    if (searchParams?.toString()) {
+      setSearchParams({ page });
+    }
     getData(page);
   }, [searchParams, setSearchParams]);
 

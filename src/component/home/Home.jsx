@@ -31,38 +31,68 @@ const Home = () => {
         <>
           <div className="row">
             <div className="col-6">
-              <PerCatIncome
-                id="1"
-                perYearPie={report?.perYearInPie}
-                years={report?.inPieYears}
-                title="Per category income"
-              />
+              {report?.inPieYears?.length > 0 ? (
+                <PerCatIncome
+                  id="1"
+                  perYearPie={report?.perYearInPie}
+                  years={report?.inPieYears}
+                  title="Per category income"
+                />
+              ) : (
+                <div className="w-100 p-2 text-info shadow">
+                  PieChart: No data to dispaly per category income
+                </div>
+              )}
             </div>
             <div className="col-6">
-              <PerCatIncome
-                id="2"
-                perYearPie={report?.perYearExPie}
-                years={report?.exPieYears}
-                title="Per category expense"
-              />
+              {report?.exPieYears?.length > 0 ? (
+                <PerCatIncome
+                  id="2"
+                  perYearPie={report?.perYearExPie}
+                  years={report?.exPieYears}
+                  title="Per category expense"
+                />
+              ) : (
+                <div className="w-100 p-2 text-info shadow">
+                  PieChart: No data to dispaly per category expense
+                </div>
+              )}
             </div>
           </div>
 
           <div className="py-1 bg-warning-subtle "></div>
-          <PerMonthInVsEx
-            inExYears={report?.inExYears}
-            perYearInEx={report?.perYearInEx}
-          />
+          {report?.inExYears?.length > 0 ? (
+            <PerMonthInVsEx
+              inExYears={report?.inExYears}
+              perYearInEx={report?.perYearInEx}
+            />
+          ) : (
+            <div className="w-100 p-2 py-5 text-info shadow">
+              Line Graph: No data to dispaly income vs expense
+            </div>
+          )}
           <div className="py-1 bg-warning-subtle "></div>
-          <PerMonthCatIncome
-            incomeYears={report?.incomeYears}
-            perYearIncome={report?.perYearIncome}
-          />
+          {report?.incomeYears?.length > 0 ? (
+            <PerMonthCatIncome
+              incomeYears={report?.incomeYears}
+              perYearIncome={report?.perYearIncome}
+            />
+          ) : (
+            <div className="w-100 p-2 py-5 text-info shadow">
+              Column Chart: No data to dispaly per month category income
+            </div>
+          )}
           <div className="py-1 bg-warning-subtle "></div>
-          <PerMonthCatExpense
-            expenseYears={report?.expenseYears}
-            perYearExpense={report?.perYearExpense}
-          />
+          {report?.expenseYears?.length > 0 ? (
+            <PerMonthCatExpense
+              expenseYears={report?.expenseYears}
+              perYearExpense={report?.perYearExpense}
+            />
+          ) : (
+            <div className="w-100 p-2 py-5 text-info shadow">
+              Column Chart: No data to dispaly per month category expense
+            </div>
+          )}
         </>
       )}
     </>

@@ -7,19 +7,24 @@ import { emitErrorToast } from "../../common/toast/EmitToast";
 import { useSearchParams } from "react-router-dom";
 import { excelGenerator } from "../../helpers/others/excelGenerater";
 import Pagination from "../../common/Pagination";
+import Loading from "../../common/Loading";
+import Error from "../../common/Error";
 
 const Transactions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [transactions, setTransactions] = useState([]);
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(false);
+  const [isPending, setIsPending] = useState(true);
 
   const getData = async (page, query) => {
-    const { data, success, message } = await getTransactions(page, query);
+    const { data, success } = await getTransactions(page, query);
     if (success) {
       setTransactions(data);
     } else {
-      emitErrorToast(message);
+      setError(true);
     }
+    setIsPending(false);
   };
 
   const handleSearch = async () => {
@@ -56,71 +61,86 @@ const Transactions = () => {
     getData(page, query);
   }, [searchParams, setSearchParams]);
 
-  return (
-    <>
-      <div className="d-flex align-items-center shadow">
-        <button
-          className="btn btn-info me-2"
-          onClick={handleExport}
-          style={{ width: "130px" }}
-        >
-          <span className="pe-1">Export</span>
-          <i className="fa-solid fa-download"></i>
-        </button>
+  if (isPending) {
+    return <Loading />;
+  }
 
-        <input
-          className="form-control my-2 my-sm-0 me-lg-2"
-          type="search"
-          placeholder="Search"
-          name="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          onClick={handleSearch}
-          className="btn btn-secondary my-2 my-sm-0"
-          type="button"
-        >
-          Search
-        </button>
-      </div>
+  if (error) {
+    return <Error />;
+  }
 
-      <div className="row px-3">
-        {transactions?.map((item, idx) => (
-          <div key={idx} className="col-md-6 col-lg-4 px-1">
-            <div
-              className={`card shadow my-2 px-1 bg-body rounded ${
-                item?.recordType === "expense"
-                  ? "text-danger "
-                  : "text-success "
-              }`}
-            >
-              <div className="card-body py-1 px-0 d-flex justify-content-between">
-                <h6 className="card-title">{item?.title || "--"}</h6>
+  if (transactions)
+    return (
+      <>
+        {transactions?.length > 0 ? (
+          <>
+            <div className="d-flex align-items-center shadow">
+              <button
+                className="btn btn-info me-2"
+                onClick={handleExport}
+                style={{ width: "130px" }}
+              >
+                <span className="pe-1">Export</span>
+                <i className="fa-solid fa-download"></i>
+              </button>
 
-                <span className="label success">
-                  {new Date(item?.createdOn)?.toDateString() || "--"}
-                </span>
-              </div>
-              <div className="card-body py-1 px-0 d-flex justify-content-between">
-                <p className="card-text text-truncate ">
-                  {item?.description || "--"}
-                </p>
-                <h6 className="card-title">Rs. {item?.amount || "--"}</h6>
-              </div>
+              <input
+                className="form-control my-2 my-sm-0 me-lg-2"
+                type="search"
+                placeholder="Search"
+                name="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button
+                onClick={handleSearch}
+                className="btn btn-secondary my-2 my-sm-0"
+                type="button"
+              >
+                Search
+              </button>
             </div>
-          </div>
-        ))}
-      </div>
 
-      <Pagination
-        searchParams={searchParams}
-        handlePageChange={handlePageChange}
-        dataLength={transactions?.length}
-        nextLimit={12}
-      />
-    </>
-  );
+            <div className="row px-3">
+              {transactions?.map((item, idx) => (
+                <div key={idx} className="col-md-6 col-lg-4 px-1">
+                  <div
+                    className={`card shadow my-2 px-1 bg-body rounded ${
+                      item?.recordType === "expense"
+                        ? "text-danger "
+                        : "text-success "
+                    }`}
+                  >
+                    <div className="card-body py-1 px-0 d-flex justify-content-between">
+                      <h6 className="card-title">{item?.title || "--"}</h6>
+
+                      <span className="label success">
+                        {new Date(item?.createdOn)?.toDateString() || "--"}
+                      </span>
+                    </div>
+                    <div className="card-body py-1 px-0 d-flex justify-content-between">
+                      <p className="card-text text-truncate ">
+                        {item?.description || "--"}
+                      </p>
+                      <h6 className="card-title">Rs. {item?.amount || "--"}</h6>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Pagination
+              searchParams={searchParams}
+              handlePageChange={handlePageChange}
+              dataLength={transactions?.length}
+              nextLimit={12}
+            />
+          </>
+        ) : (
+          <h6 className="text-center py-5">No Records Found</h6>
+        )}
+      </>
+    );
 };
 
 export default Transactions;

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { createIncome, updateIncome } from "../../helpers/api/incomeApi";
 import FormikSelect from "../../common/form/FormikSelect";
 import { getActiveInCategories } from "../../helpers/api/incomeCategoryApis";
+import income from "../../validation/income";
 
 const IncomeForm = ({ editData }) => {
   const navigate = useNavigate();
@@ -21,9 +22,9 @@ const IncomeForm = ({ editData }) => {
   const [form, setForm] = useState(initial);
   const [options, setOptions] = useState([]);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, action) => {
     const payload = { ...values, date: new Date(values?.date).toISOString() };
-    const { success, message } = editData
+    const { data, success, message } = editData
       ? await updateIncome(payload, editData?.id)
       : await createIncome(payload);
     if (success) {
@@ -31,7 +32,7 @@ const IncomeForm = ({ editData }) => {
       setForm(initial);
       navigate("/income");
     } else {
-      emitErrorToast(message);
+      data ? action.setErrors(data) : emitErrorToast(message);
     }
   };
 
@@ -68,7 +69,7 @@ const IncomeForm = ({ editData }) => {
     <Formik
       initialValues={form}
       onSubmit={handleSubmit}
-      // validationSchema={bookValidation}
+      validationSchema={income}
       enableReinitialize
     >
       {(formik) => (

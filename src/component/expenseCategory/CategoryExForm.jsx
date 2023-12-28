@@ -7,6 +7,7 @@ import {
   createExCategory,
   updateExCategory,
 } from "../../helpers/api/expenseCategoryApi";
+import expenseCategory from "../../validation/expanseCAtegory";
 
 const CategoryExForm = ({ editData }) => {
   const navigate = useNavigate();
@@ -16,8 +17,8 @@ const CategoryExForm = ({ editData }) => {
   };
   const [form, setForm] = useState(initial);
 
-  const handleSubmit = async (values) => {
-    const { success, message } = editData
+  const handleSubmit = async (values, action) => {
+    const { data, success, message } = editData
       ? await updateExCategory(values, editData?.id)
       : await createExCategory(values);
     if (success) {
@@ -25,7 +26,7 @@ const CategoryExForm = ({ editData }) => {
       setForm(initial);
       navigate("/expense-category");
     } else {
-      emitErrorToast(message);
+      data ? action.setErrors(data) : emitErrorToast(message);
     }
   };
 
@@ -39,7 +40,7 @@ const CategoryExForm = ({ editData }) => {
     <Formik
       initialValues={form}
       onSubmit={handleSubmit}
-      // validationSchema={bookValidation}
+      validationSchema={expenseCategory}
       enableReinitialize
     >
       {(formik) => (

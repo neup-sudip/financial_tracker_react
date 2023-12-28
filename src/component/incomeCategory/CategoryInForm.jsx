@@ -7,6 +7,7 @@ import {
 } from "../../helpers/api/incomeCategoryApis";
 import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
 import { useNavigate } from "react-router-dom";
+import incomeCategory from "../../validation/incomeCategory";
 
 const CategoryInForm = ({ editData }) => {
   const navigate = useNavigate();
@@ -16,8 +17,8 @@ const CategoryInForm = ({ editData }) => {
   };
   const [form, setForm] = useState(initial);
 
-  const handleSubmit = async (values) => {
-    const { success, message } = editData
+  const handleSubmit = async (values, action) => {
+    const { data, success, message } = editData
       ? await updateInCategory(values, editData?.id)
       : await createInCategory(values);
     if (success) {
@@ -25,7 +26,7 @@ const CategoryInForm = ({ editData }) => {
       setForm(initial);
       navigate("/income-category");
     } else {
-      emitErrorToast(message);
+      data ? action.setErrors(data) : emitErrorToast(message);
     }
   };
 
@@ -39,7 +40,7 @@ const CategoryInForm = ({ editData }) => {
     <Formik
       initialValues={form}
       onSubmit={handleSubmit}
-      // validationSchema={bookValidation}
+      validationSchema={incomeCategory}
       enableReinitialize
     >
       {(formik) => (

@@ -1,7 +1,11 @@
 import { ApiServices } from "../../http/httpServices";
 
-export const getIncomes = async () => {
-  return await ApiServices.get(`/v1/income`);
+export const getIncomes = async (page = 1) => {
+  return await ApiServices.get(`/v1/income?page=${page}`);
+};
+
+export const downloadIncome = async () => {
+  return await ApiServices.get("/v1/income/download");
 };
 
 export const getSingleIncome = async (incomeId) => {

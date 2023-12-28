@@ -1,7 +1,11 @@
 import { ApiServices } from "../../http/httpServices";
 
-export const getExpenses = async (catId) => {
-  return await ApiServices.get(`/v1/expense?category=${catId || 0}`);
+export const getExpenses = async (page = 1) => {
+  return await ApiServices.get(`/v1/expense?page=${page}`);
+};
+
+export const downloadExpense = async () => {
+  return await ApiServices.get("/v1/expense/download");
 };
 
 export const getSingleExpense = async (expenseId) => {

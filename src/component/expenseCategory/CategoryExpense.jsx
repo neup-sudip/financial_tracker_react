@@ -57,7 +57,11 @@ const CategoryExpense = () => {
             Add New
           </Link>
         </div>
-        <Table heading={headings} data={dataList} handleEdit={handleEdit} />
+        {dataList?.length > 0 ? (
+          <Table heading={headings} data={dataList} handleEdit={handleEdit} />
+        ) : (
+          <h6 className="text-center py-5">No Records Found</h6>
+        )}
       </div>
     );
   }

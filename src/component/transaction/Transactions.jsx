@@ -6,6 +6,7 @@ import {
 import { emitErrorToast } from "../../common/toast/EmitToast";
 import { useSearchParams } from "react-router-dom";
 import { excelGenerator } from "../../helpers/others/excelGenerater";
+import Pagination from "../../common/Pagination";
 
 const Transactions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -114,24 +115,12 @@ const Transactions = () => {
         ))}
       </div>
 
-      <div className="text-end">
-        <button
-          onClick={() => handlePageChange(-1)}
-          disabled={parseInt(searchParams.get("page") ?? 1) <= 1}
-          type="button"
-          className="btn btn-primary me-2"
-        >
-          Prev
-        </button>
-        <button
-          onClick={() => handlePageChange(1)}
-          disabled={transactions?.length !== 12}
-          type="button"
-          className="btn btn-primary"
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        searchParams={searchParams}
+        handlePageChange={handlePageChange}
+        dataLength={transactions?.length}
+        nextLimit={12}
+      />
     </>
   );
 };

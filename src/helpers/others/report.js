@@ -1,8 +1,8 @@
 import {
   MONTH,
-  chart,
-  pieChart,
-  inExChart,
+  CHART,
+  PIECHART,
+  INEXCHART,
   PER_MONTH_CAT,
 } from "../constants/report";
 import { ApiServices } from "../../http/httpServices";
@@ -154,7 +154,7 @@ const helperFunc = (data, perYearPie, pieYears, perYear, years, inExIndex) => {
   });
 
   Object.keys(pieObj).forEach((year) => {
-    perYearPie[year] = JSON.parse(JSON.stringify(pieChart));
+    perYearPie[year] = JSON.parse(JSON.stringify(PIECHART));
     pieYears.push(year);
     Object.keys(pieObj[year]).forEach((cat) => {
       perYearPie[year].push([cat, pieObj[year][cat]]);
@@ -163,7 +163,7 @@ const helperFunc = (data, perYearPie, pieYears, perYear, years, inExIndex) => {
 
   Object.keys(asObj).forEach((year) => {
     if (!perYear[year]) {
-      perYear[year] = JSON.parse(JSON.stringify(chart));
+      perYear[year] = JSON.parse(JSON.stringify(CHART));
     }
     years.push(year);
     //fill zero in every rows
@@ -176,7 +176,7 @@ const helperFunc = (data, perYearPie, pieYears, perYear, years, inExIndex) => {
     });
 
     if (!perYearInEx[year]) {
-      perYearInEx[year] = JSON.parse(JSON.stringify(inExChart));
+      perYearInEx[year] = JSON.parse(JSON.stringify(INEXCHART));
     }
     inExYears.push(year);
 

@@ -103,7 +103,7 @@ export const MONTH_ARRAY = [
   "December",
 ];
 
-export const inExChart = [
+export const INEXCHART = [
   ["Month", "Income", "Expense"],
   ["Jan", 0, 0],
   ["Feb", 0, 0],
@@ -119,7 +119,7 @@ export const inExChart = [
   ["Dec", 0, 0],
 ];
 
-export const chart = [
+export const CHART = [
   ["Month"],
   ["Jan"],
   ["Feb"],
@@ -135,4 +135,4 @@ export const chart = [
   ["Dec"],
 ];
 
-export const pieChart = [["Category", "Amount"]];
+export const PIECHART = [["Category", "Amount"]];

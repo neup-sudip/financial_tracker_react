@@ -42,7 +42,6 @@ const Transactions = () => {
         "amount",
         "createdOn",
         "recordType",
-        "categoryTitle",
       ];
       excelGenerator("Transactions", "transactions", columns, data);
     } else {

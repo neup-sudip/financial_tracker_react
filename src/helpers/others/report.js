@@ -49,6 +49,7 @@ export const getPerYearMonthCatInEx = async () => {
     1
   );
 
+  //calculating gross
   Object.keys(perYearInEx).forEach((year) => {
     for (let i = 2; i <= 12; i++) {
       perYearInEx[year][i][1] += perYearInEx[year][i - 1][1];

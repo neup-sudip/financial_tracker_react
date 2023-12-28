@@ -17,24 +17,28 @@ const PerCatIncome = ({ id, perYearPie, years, title }) => {
   }, [perYearPie, years]);
 
   const histogram = useCallback(() => {
-    const data = window.google.visualization.arrayToDataTable(
-      perYearPie[activeYear]
-    );
+    if (activeYear) {
+      const data = window.google.visualization.arrayToDataTable(
+        perYearPie[activeYear]
+      );
 
-    var options = {
-      title,
-      is3D: true,
-    };
+      var options = {
+        title,
+        is3D: true,
+      };
 
-    var chart = new window.google.visualization.PieChart(
-      document.getElementById(`piechart_3d_${id}`)
-    );
-    chart.draw(data, options);
+      var chart = new window.google.visualization.PieChart(
+        document.getElementById(`piechart_3d_${id}`)
+      );
+      chart.draw(data, options);
+    }
   }, [activeYear, id, perYearPie, title]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (perYearPie && years) {
+      getData();
+    }
+  }, [perYearPie, years, getData]);
 
   useEffect(() => {
     if (activeYear) window.google.charts.setOnLoadCallback(histogram);

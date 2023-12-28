@@ -18,30 +18,34 @@ const PerMonthCatIncome = ({ perYearIncome, incomeYears }) => {
   }, [incomeYears, perYearIncome]);
 
   const histogram = useCallback(() => {
-    const data = window.google.visualization.arrayToDataTable(
-      perYearIncome[activeYear]
-    );
+    if (activeYear) {
+      const data = window.google.visualization.arrayToDataTable(
+        perYearIncome[activeYear]
+      );
 
-    var options = {
-      title: "Income per month per category",
-      vAxis: {
-        title: "Income amount",
-      },
-      hAxis: {
-        title: "Per month categories",
-      },
-    };
+      var options = {
+        title: "Income per month per category",
+        vAxis: {
+          title: "Income amount",
+        },
+        hAxis: {
+          title: "Per month categories",
+        },
+      };
 
-    const chart = new window.google.visualization.ColumnChart(
-      document.getElementById(divId)
-    );
+      const chart = new window.google.visualization.ColumnChart(
+        document.getElementById(divId)
+      );
 
-    chart.draw(data, options);
+      chart.draw(data, options);
+    }
   }, [activeYear, perYearIncome]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (perYearIncome && incomeYears) {
+      getData();
+    }
+  }, [getData, perYearIncome, incomeYears]);
 
   useEffect(() => {
     window.google.charts.setOnLoadCallback(histogram);

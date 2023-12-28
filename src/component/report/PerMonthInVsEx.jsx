@@ -18,30 +18,34 @@ const PerMonthInVsEx = ({ perYearInEx, inExYears }) => {
   }, [inExYears, perYearInEx]);
 
   const histogram = useCallback(() => {
-    const data = window.google.visualization.arrayToDataTable(
-      perYearInEx[activeYear]
-    );
+    if (activeYear) {
+      const data = window.google.visualization.arrayToDataTable(
+        perYearInEx[activeYear]
+      );
 
-    var options = {
-      title: "Income Vs Expense",
-      vAxis: {
-        title: "Amount",
-      },
-      hAxis: {
-        title: "Per Month",
-      },
-    };
+      var options = {
+        title: "Income Vs Expense (Gross)",
+        vAxis: {
+          title: "Amount",
+        },
+        hAxis: {
+          title: "Per Month",
+        },
+      };
 
-    const chart = new window.google.visualization.LineChart(
-      document.getElementById(divId)
-    );
+      const chart = new window.google.visualization.LineChart(
+        document.getElementById(divId)
+      );
 
-    chart.draw(data, options);
+      chart.draw(data, options);
+    }
   }, [activeYear, perYearInEx]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (perYearInEx && inExYears) {
+      getData();
+    }
+  }, [getData, perYearInEx, inExYears]);
 
   useEffect(() => {
     window.google.charts.setOnLoadCallback(histogram);

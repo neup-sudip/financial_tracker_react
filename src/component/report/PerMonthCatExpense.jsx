@@ -19,30 +19,34 @@ const PerMonthCatExpense = ({ perYearExpense, expenseYears }) => {
   }, [expenseYears, perYearExpense]);
 
   const histogram = useCallback(() => {
-    const data = window.google.visualization.arrayToDataTable(
-      perYearExpense[activeYear]
-    );
+    if (activeYear) {
+      const data = window.google.visualization.arrayToDataTable(
+        perYearExpense[activeYear]
+      );
 
-    var options = {
-      title: "Expense per month per category",
-      vAxis: {
-        title: "Expense amount",
-      },
-      hAxis: {
-        title: "Per month categories",
-      },
-    };
+      var options = {
+        title: "Expense per month per category",
+        vAxis: {
+          title: "Expense amount",
+        },
+        hAxis: {
+          title: "Per month categories",
+        },
+      };
 
-    const chart = new window.google.visualization.ColumnChart(
-      document.getElementById(divId)
-    );
+      const chart = new window.google.visualization.ColumnChart(
+        document.getElementById(divId)
+      );
 
-    chart.draw(data, options);
+      chart.draw(data, options);
+    }
   }, [activeYear, perYearExpense]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (perYearExpense && expenseYears) {
+      getData();
+    }
+  }, [getData, perYearExpense, expenseYears]);
 
   useEffect(() => {
     window.google.charts.setOnLoadCallback(histogram);

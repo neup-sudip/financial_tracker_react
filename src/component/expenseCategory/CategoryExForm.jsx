@@ -44,7 +44,10 @@ const CategoryExForm = ({ editData }) => {
       enableReinitialize
     >
       {(formik) => (
-        <Form className="container bg-white rounded-1 shadow py-2">
+        <Form
+          className="container bg-white rounded-1 shadow py-2"
+          style={{ maxWidth: "800px" }}
+        >
           <h5>Add Expense Category</h5>
           <div className="px-2">
             <FormikInputField

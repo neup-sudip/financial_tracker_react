@@ -73,7 +73,10 @@ const IncomeForm = ({ editData }) => {
       enableReinitialize
     >
       {(formik) => (
-        <Form className="container bg-white rounded-1 shadow py-2">
+        <Form
+          className="container bg-white rounded-1 shadow py-2"
+          style={{ maxWidth: "800px" }}
+        >
           <h5>Add Income</h5>
           <div className="px-2">
             <FormikSelect

@@ -20,13 +20,20 @@ const ExpenseForm = ({ editData }) => {
     description: "",
     amount: "",
     date: "",
+    cronFor: "",
   };
 
   const [form, setForm] = useState(initial);
   const [options, setOptions] = useState([]);
 
+  const cronOptions = [
+    { label: "DAILY", value: "DAILY" },
+    { label: "WEEKLY", value: "WEEK" },
+    { label: "MONTHLY", value: "MONTH" },
+  ];
+
   const handleSubmit = async (values, actions) => {
-    const payload = { ...values, date: new Date(values?.date).toISOString() };
+    const payload = { ...values, date: new Date(values?.date)?.toISOString() };
     const { data, success, message, status } = editData
       ? await updateExpense(payload, editData?.id)
       : await createExpense(payload);
@@ -119,6 +126,12 @@ const ExpenseForm = ({ editData }) => {
                 type="datetime-local"
                 label="Date"
                 placeholder="Select date"
+              />
+              <FormikSelect
+                label="Select Automation"
+                name="cronFor"
+                options={cronOptions}
+                formik={formik}
               />
             </div>
 

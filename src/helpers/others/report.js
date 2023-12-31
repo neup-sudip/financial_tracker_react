@@ -130,7 +130,7 @@ const helperFunc = (data, perYearPie, pieYears, perYear, years, inExIndex) => {
   let asObj = {};
   let pieObj = {};
 
-  data.forEach((item) => {
+  data?.forEach((item) => {
     const { year, month, category, total } = item;
     if (!hasCat[year]) {
       hasCat[year] = [];

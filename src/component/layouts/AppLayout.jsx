@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import { useState } from "react";
 
 const AppLayout = ({ profile }) => {
-  const [showSideNav, setShowSideNav] = useState(true);
+  const [showSideNav, setShowSideNav] = useState(false);
 
   return (
     <>

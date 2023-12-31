@@ -20,7 +20,7 @@ const SideNavbar = () => {
   const [active, setActive] = useState(window.location.pathname);
 
   return (
-    <div className="d-flex flex-column flex-shrink-0 p-3 bg-light h-100 ">
+    <div className="d-flex flex-column flex-shrink-0 p-3 bg-light h-100">
       <p className="d-flex align-items-center link-dark text-decoration-none">
         <span className="fs-4">Financial Tracker</span>
       </p>

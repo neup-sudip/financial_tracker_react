@@ -25,6 +25,7 @@ import Transactions from "./component/transaction/Transactions";
 
 function App() {
   const { profile } = useSelector((state) => state.user);
+
   return (
     <Routes>
       <Route path="/" element={<AppLayout profile={profile} />}>

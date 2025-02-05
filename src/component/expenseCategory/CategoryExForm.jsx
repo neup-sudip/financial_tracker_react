@@ -24,6 +24,7 @@ const CategoryExForm = ({ editData }) => {
     if (success) {
       emitSuccessToast(message);
       setForm(initial);
+      
       navigate("/expense-category");
     } else {
       data ? action.setErrors(data) : emitErrorToast(message);
